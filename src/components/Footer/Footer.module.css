@@ -1,0 +1,23 @@
+footer {
+    @apply text-white bg-green-800 flex justify-between absolute inset-x-0 bottom-0 h-64
+}
+
+footer div {
+    @apply m-16
+}
+
+footer button{
+    @apply block
+}
+
+footer a{
+    @apply block
+}
+
+footer a {
+    @apply text-white text-base
+}
+
+footer a:hover {
+    @apply text-lg font-bold
+}

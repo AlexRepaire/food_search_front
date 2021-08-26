@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './loginForm.module.css';
+import styles from './LoginForm.module.css';
 import Input from "../../UI/Input";
 
 const LoginForm = (props) => {
@@ -14,9 +14,10 @@ const LoginForm = (props) => {
                 <div className="mb-4">
                     <label htmlFor="">Mot de passe</label>
                     <Input type="password" placeholder="Mot de passe"/>
-                    <a href="">Mot de passe oublié ?</a>
+                    <a href="" >Mot de passe oublié ?</a>
+                    <a href="" className="block">Pas de compte ?</a>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-evenly">
                     <button
                         className={styles.btnPrimary}
                         type="button">Connexion</button>

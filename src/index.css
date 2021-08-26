@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+form {
+    @apply bg-white shadow-md rounded px-8 pt-6 pb-8 m-4
+}
+
+label {
+    @apply block text-gray-700 text-sm font-bold mb-2
+}
+
+a {
+    @apply text-blue-500 text-xs
+}

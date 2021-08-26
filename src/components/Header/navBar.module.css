@@ -1,5 +1,5 @@
 .navBar {
-    @apply bg-green-600 flex items-center flex-wrap p-4 sticky top-0 justify-between
+    @apply bg-green-800 flex items-center flex-wrap p-4 sticky top-0 justify-between
 }
 
 .button {
@@ -7,7 +7,7 @@
 }
 
 .button:hover {
-    @apply hover:border-transparent hover:text-green-600 hover:bg-white
+    @apply hover:border-transparent hover:text-green-800 hover:bg-white
 }
 
 h1{
@@ -16,4 +16,8 @@ h1{
 
 svg {
     @apply fill-current h-8 w-8 mr-2
+}
+
+header div div a {
+    @apply text-base
 }

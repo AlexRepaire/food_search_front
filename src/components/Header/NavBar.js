@@ -1,6 +1,6 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './navBar.module.css';
-import LoginForm from "../../components/Login/LoginForm";
+import LoginForm from "../Login/LoginForm";
 
 const NavBar = () => {
     const [loginView, setLoginView] = useState(false);
@@ -16,7 +16,7 @@ const NavBar = () => {
     const viewLogin = loginView ? <LoginForm changeLoginView={cancelLoginViewHandler}/> : null;
 
     return (
-        <Fragment>
+        <header>
             <nav className={styles.navBar}>
                 <div className="text-white flex">
                     <svg width="54" height="54" viewBox="0 0 54 54"
@@ -29,13 +29,13 @@ const NavBar = () => {
                 <div>
                     <div>
                         <button onClick={startLoginViewHandler} className={styles.button}>Connexion</button>
-                        <button className={styles.button}>Inscription</button>
+                        <a href="" className={styles.button}>Inscription</a>
                     </div>
 
                 </div>
             </nav>
             {viewLogin}
-        </Fragment>
+        </header>
     );
 };
 
