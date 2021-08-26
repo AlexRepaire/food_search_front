@@ -1,0 +1,19 @@
+.navBar {
+    @apply bg-green-600 flex items-center flex-wrap p-4 sticky top-0 justify-between
+}
+
+.button {
+    @apply inline-block px-2 py-2 leading-none border rounded text-white border-white mt-4 lg:mt-0 mx-2
+}
+
+.button:hover {
+    @apply hover:border-transparent hover:text-green-600 hover:bg-white
+}
+
+h1{
+    @apply font-semibold text-xl tracking-tight
+}
+
+svg {
+    @apply fill-current h-8 w-8 mr-2
+}
