@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 form {
-    @apply bg-white shadow-md rounded px-8 pt-6 pb-8 m-4
+    @apply bg-white shadow-2xl rounded-xl p-8 m-auto bg-gray-50
 }
 
 label {

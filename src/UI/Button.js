@@ -3,6 +3,7 @@ import React from 'react';
 const Button = (props) => {
     let color;
 
+    // eslint-disable-next-line default-case
     switch (props.color) {
         case "blue":
             color = `btnPrimary`;
@@ -13,7 +14,6 @@ const Button = (props) => {
         case "green":
             color = `btnGreen`;
             break;
-        default: color = "btnPrimary";
     }
 
     return (
