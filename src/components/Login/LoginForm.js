@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './LoginForm.module.css';
 import Input from "../../UI/Input";
+import Button from "../../UI/Button";
 
 const LoginForm = (props) => {
 
     return (
         <div className="flex justify-center">
-            <form>
+            <form className="absolute">
                 <div className="mb-4">
                     <label htmlFor="">Mail</label>
                     <Input placeholder="Mail"/>
@@ -18,13 +18,11 @@ const LoginForm = (props) => {
                     <a href="" className="block">Pas de compte ?</a>
                 </div>
                 <div className="flex items-center justify-evenly">
-                    <button
-                        className={styles.btnPrimary}
-                        type="button">Connexion</button>
-                    <button
-                        className={styles.btnDanger}
-                        onClick={props.changeLoginView}
-                        type="button">Annuler</button>
+                    <Button
+                        color="blue">Connexion</Button>
+                    <Button
+                        color="red"
+                        onClick={props.changeLoginView}>Annuler</Button>
                 </div>
             </form>
         </div>
