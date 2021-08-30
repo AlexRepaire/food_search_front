@@ -2,8 +2,11 @@ import React from 'react';
 import './Input.module.css';
 
 const Input = (props) => {
+
+    const styles = props.className ? `cursor-pointer ${props.className}` : "";
+
     return (
-        <input onChange={props.onChange} type={props.type} placeholder={props.placeholder}/>
+        <input onChange={props.onChange} className={styles} value={props.value} type={props.type} placeholder={props.placeholder}/>
     );
 };
 

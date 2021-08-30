@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styles from './navBar.module.css';
-import LoginForm from "../Login/LoginForm";
+import LoginForm from "../LoginForm/LoginForm";
 
 const NavBar = () => {
     const [loginView, setLoginView] = useState(false);

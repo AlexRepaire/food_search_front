@@ -1,0 +1,3 @@
+.cover {
+    @apply flex justify-center bg-cover bg-center h-80
+}
