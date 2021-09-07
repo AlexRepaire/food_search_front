@@ -23,6 +23,8 @@ const SearchFormHome = () => {
     return (
         <div className={styles.cover} style={{backgroundImage: `url(${ImageCover})`}}>
             <form onSubmit={formSubmissionHandler} className="w-3/12">
+                <h2 className="text-3xl text-center text-gray-700 mb-4">Rechercher un restaurant</h2>
+
                 <div className="mb-4">
                     <label htmlFor="">Quoi ?</label>
                     <Input placeholder="Nom restaurant" onChange={quoiInputChangeHandler}/>
