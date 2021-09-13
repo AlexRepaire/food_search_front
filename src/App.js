@@ -7,6 +7,10 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import Restaurant from "./pages/Restaurant/Restaurant";
 import Inscription from "./pages/Sign-up/Inscription";
 import NotFound from "./pages/NotFound";
+import RestaurantDetail from "./pages/Restaurant/RestaurantDetail";
+import EspaceAdmin from "./pages/Espace/Admin/EspaceAdmin";
+import EspaceClient from "./pages/Espace/Client/EspaceClient";
+import EspaceRestaurateur from "./pages/Espace/Restaurateur/EspaceRestaurateur";
 
 function App() {
   return (
@@ -18,9 +22,12 @@ function App() {
             </Route>
             <Route path="/home" component={Home} />
             <Route path="/inscription" component={Inscription} />
-            <Route path="/restaurant" component={Restaurant} exact />
-            <Route path="*" component={NotFound}/>
-
+            <Route path="/restaurant" component={Restaurant} exact/>
+            <Route path="/restaurant/:id" component={RestaurantDetail} />
+            <Route path="/espaceClient" component={EspaceClient}/>
+            <Route path="/espaceAdmin" component={EspaceAdmin}/>
+            <Route path="/espaceRestaurateur" component={EspaceRestaurateur}/>
+            <Route component={NotFound}/>
         </Switch>
         <Footer/>
     </Fragment>
