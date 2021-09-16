@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/role`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/role/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/role/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/role/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/role/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/role/delete/${id}`);
 }
 
 const roleService = {

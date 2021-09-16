@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/joursConge`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/joursConge/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/joursConge/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/joursConge/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/joursConge/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/joursConge/delete/${id}`);
 }
 
 const joursCongesService = {

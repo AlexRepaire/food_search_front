@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/message`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/message/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/message/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/message/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/message/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/message/delete/${id}`);
 }
 
 const messageService = {

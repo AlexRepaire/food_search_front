@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/fidelite`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/fidelite/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/fidelite/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/fidelite/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/fidelite/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/fidelite/delete/${id}`);
 }
 
 const fideliteService = {

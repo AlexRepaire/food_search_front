@@ -6,10 +6,9 @@ export class Adresse {
     adrCp;
     adrVille;
     adrPays;
-    fsUtilisateurByAdrId;
-    fsRestaurantByAdrId;
 
-    constructor(adrId,adrNumero,adrRue,adrCplAdr, adrCp, adrVille, adrPays, fsUtilisateurByAdrId, fsRestaurantByAdrId) {
+
+    constructor(adrId,adrNumero,adrRue,adrCplAdr, adrCp, adrVille, adrPays) {
         this.adrId = adrId;
         this.adrNumero = adrNumero;
         this.adrRue = adrRue;
@@ -17,7 +16,6 @@ export class Adresse {
         this.adrCp = adrCp;
         this.adrVille = adrVille;
         this.adrPays = adrPays;
-        this.fsUtilisateurByAdrId = fsUtilisateurByAdrId;
-        this.fsRestaurantByAdrId = fsRestaurantByAdrId;
+
     }
 }

@@ -25,7 +25,7 @@ const LoginForm = (props) => {
 
     return (
         <div className="flex justify-center">
-            <form onSubmit={formSubmissionHandler} className="absolute">
+            <form onSubmit={formSubmissionHandler} className="absolute mt-32">
                 <h2 className="text-3xl text-center text-gray-700 mb-4">Connexion</h2>
                 <div className="px-12 pb-10">
                     <div className="w-full mb-2">

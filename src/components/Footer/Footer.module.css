@@ -1,5 +1,5 @@
 footer {
-    @apply text-white bg-green-800 flex justify-between absolute inset-x-0 bottom-0 h-64
+    @apply text-white bg-green-800 flex justify-between relative inset-x-0  h-64
 }
 
 footer div {

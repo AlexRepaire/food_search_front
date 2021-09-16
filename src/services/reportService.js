@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/report`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/report/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/report/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/report/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/report/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/report/delete/${id}`);
 }
 
 const reportService = {

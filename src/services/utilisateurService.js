@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/utilisateur`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/utilisateur/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/utilisateur/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/utilisateur/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/utilisateur/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/utilisateur/delete/${id}`);
 }
 
 const utilisateurService = {

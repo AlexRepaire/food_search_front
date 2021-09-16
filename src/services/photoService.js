@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/photo`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/photo/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/photo/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/photo/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/photo/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/photo/delete/${id}`);
 }
 
 const photoService = {

@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/horaires`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/horaires/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/horaires/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/horaires/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/horaires/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/horaires/delete/${id}`);
 }
 
 const horairesService = {

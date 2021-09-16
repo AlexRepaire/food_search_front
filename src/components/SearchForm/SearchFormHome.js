@@ -17,7 +17,7 @@ const SearchFormHome = () => {
 
     const formSubmissionHandler = e => {
         e.preventDefault();
-        console.log(enteredQuoi)
+
     }
 
     return (

@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/favoris`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/favoris/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/favoris/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/favoris/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/favoris/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/favoris/delete/${id}`);
 }
 
 const favorisService = {

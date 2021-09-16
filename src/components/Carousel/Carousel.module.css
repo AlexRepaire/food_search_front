@@ -1,0 +1,3 @@
+.card {
+    @apply shadow-md rounded-md overflow-hidden
+}

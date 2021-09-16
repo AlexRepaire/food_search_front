@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/specialite`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/specialite/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/specialite/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/specialite/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/specialite/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/specialite/delete/${id}`);
 }
 
 const specialiteService = {

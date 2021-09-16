@@ -1,5 +1,5 @@
 .navBar {
-    @apply bg-green-800 flex items-center flex-wrap p-4 sticky top-0 justify-between
+    @apply bg-green-800 flex items-center flex-wrap p-4 fixed inset-x-0 top-0 justify-between
 }
 
 .button {
@@ -20,4 +20,8 @@ svg {
 
 header div div a {
     @apply text-base
+}
+
+header {
+    @apply pb-16
 }

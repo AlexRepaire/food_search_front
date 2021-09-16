@@ -1,25 +1,24 @@
 import http from "../utils/http-common";
 
-const url = `${http}/adresse`;
 
 const getAll = () => {
-    return url.get('/find');
+    return http.get('/adresse/find');
 }
 
 const get = (id) => {
-    return url.get(`/find/${id}`);
+    return http.get(`/adresse/find/${id}`);
 }
 
 const create = (data) => {
-    return url.post('/add',data);
+    return http.post('/adresse/add',data);
 }
 
 const update = (data) => {
-    return url.put(`/update`, data);
+    return http.put(`/adresse/update`, data);
 }
 
 const remove = (id) => {
-    return url.delete(`/delete/${id}`);
+    return http.delete(`/adresse/delete/${id}`);
 }
 
 const adresseService = {
