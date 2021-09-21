@@ -1,29 +1,33 @@
 import React, {useEffect, useState} from 'react';
 import Input from "../../UI/Input";
-import Button from "../../UI/Button";
 import {Utilisateur} from "../../models/utilisateur";
+import FieldForm from "../../UI/FieldForm";
 
-const FormUserSignUp = (props) => {
+const FormUserSignUp = ({modifyIndex, value, role, inscriptionUtilisateur, setUtilisateurHandler}) => {
     const [nom, setNom] = useState();
     const [prenom, setPrenom] = useState();
     const [tel, setTel] = useState();
     const [pseudo, setPseudo] = useState();
     const [mail, setMail] = useState();
     const [mdp, setMdp] = useState();
+    const [mdp2, setMdp2] = useState();
     const [ddn, setDdn] = useState(); //date de naissance
+
+    const [error, setError] = useState(false);
+    const [passwordIsValid, setPasswordIsValid] = useState();
 
     const utilisateur = new Utilisateur(null, nom, prenom, tel, pseudo, mail, mdp, ddn);
 
     useEffect(()=>{
-        setNom(props.value.utiNom);
-        setPrenom(props.value.utiPrenom);
-        setTel(props.value.utiTel);
-        setPseudo(props.value.utiPseudo);
-        setMail(props.value.utiMail);
-        setMdp(props.value.utiMdp);
-        setDdn(props.value.utiDdn);
-        console.log(props.role)
-    },[])
+        setNom(value.utiNom);
+        setPrenom(value.utiPrenom);
+        setTel(value.utiTel);
+        setPseudo(value.utiPseudo);
+        setMail(value.utiMail);
+        setMdp(value.utiMdp);
+        setDdn(value.utiDdn);
+        console.log(role)
+    },[]);
 
     const nomHandler = e => {
         setNom(e.target.value);
@@ -49,66 +53,76 @@ const FormUserSignUp = (props) => {
         setMdp(e.target.value);
     };
 
+    const mdpHandler2 = e => {
+        setMdp2(e.target.value);
+    };
+
     const ddnHandler = e => {
         setDdn(e.target.value);
     };
 
-    const viewInput = props.role === "restaurant"
+    const isValidHandler = () => {
+        if (mdp === mdp2 ) {
+            setPasswordIsValid(true);
+        } else {
+            setPasswordIsValid(false);
+        }
+    };
+
+
+    const viewInput = role === "restaurant"
         ? <Input type="submit" className="btnPrimary" value="suivant"/>
         : <Input type="submit" className="btnUpdate" value="Finir inscription"/>;
 
     const nextStep = e => {
         e.preventDefault();
-        props.setUtilisateurHandler(utilisateur);
-        if (props.role === "restaurant") {
-            props.modifyIndex(4);
+        //isValidHandler();
+/*
+        if (nom.trim().length === 0){
+            setError(true);
+            return
         } else {
-            const inscription = props.inscriptionUtilisateur;
-            inscription();
+            setError(false);
         }
+*/
+
+        if (passwordIsValid){
+            setUtilisateurHandler(utilisateur);
+            if (role === "restaurant") {
+                modifyIndex(4);
+            } else {
+                const inscription = inscriptionUtilisateur;
+                alert("inscription SUCCESS")
+                //inscription();
+            }
+        } else {
+            return alert("mdp incorrect");
+        }
+
     };
 
     const prevStep = e => {
-        props.setUtilisateurHandler(utilisateur);
-        props.modifyIndex(2);
+        setUtilisateurHandler(utilisateur);
+        modifyIndex(2);
     };
 
     return (
         <form onSubmit={nextStep} className="mt-60">
             <h2 className="text-3xl text-center text-gray-700 mb-4">Veuillez saisir vos informations</h2>
             <div className="px-12 pb-10">
-                <div className="w-full mb-2">
-                    <label htmlFor="">Nom</label>
-                    <Input type="text" placeholder="Nom" value={nom} onChange={nomHandler}/>
-                </div>
-                <div className="w-full mb-2">
-                    <label htmlFor="">Prénom</label>
-                    <Input  type="text" placeholder="Prénom" value={prenom} onChange={prenomHandler}/>
-                </div>
-                <div className="w-full mb-2">
-                    <label htmlFor="">Téléphone</label>
-                    <Input type="number" placeholder="Téléphone" value={tel} onChange={telHandler}/>
-                </div>
-                <div className="w-full mb-2">
-                    <label htmlFor="">Pseudo</label>
-                    <Input type="text" placeholder="Pseudo" value={pseudo} onChange={pseudoHandle}/>
-                </div>
-                <div className="w-full mb-2">
-                    <label htmlFor="">Mail</label>
-                    <Input type="mail" placeholder="Mail" value={mail} onChange={mailHandler}/>
-                </div>
-                <div className="w-full mb-2">
-                    <label htmlFor="">Mot de passe</label>
-                    <Input type="password" placeholder="Mot de passe" value={mdp} onChange={mdpHandler}/>
-                </div>
-                <div className="w-full mb-2">
-                    <label htmlFor="">Date de naissance</label>
-                    <Input type="date" placeholder="Date de naissance" value={ddn} onChange={ddnHandler}/>
-                </div>
+                <FieldForm label="Nom *" type="text" placeholder="Nom" value={nom} onChange={nomHandler} error={error} />
+                <FieldForm label="Prénom" type="text" placeholder="Prénom" value={prenom} onChange={prenomHandler}/>
+                <FieldForm label="Pseudo" type="text" placeholder="Pseudo" value={pseudo} onChange={pseudoHandle}/>
+                <FieldForm label="Date de naissance" type="date" placeholder="Date de naissance" value={ddn} onChange={ddnHandler}/>
+                <FieldForm label="Téléphone" type="number" placeholder="Téléphone" value={tel} onChange={telHandler}/>
+                <FieldForm label="Mail" type="mail" placeholder="Mail" value={mail} onChange={mailHandler}/>
+                <FieldForm label="Mot de passe" type="password" placeholder="Mot de passe" value={mdp} onChange={mdpHandler}/>
+                <FieldForm label="Mot de passe" type="password" placeholder="Mot de passe" onChange={mdpHandler2}/>
+
                 <div className="flex items-center justify-evenly">
-                    <Button
+                    <button
                         className="btnDanger"
-                        onClick={prevStep}>Précédent</Button>
+                        onClick={prevStep}>Précédent</button>
                     {viewInput}
                 </div>
             </div>

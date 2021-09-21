@@ -1,8 +1,5 @@
 import React, {useState} from 'react';
 import Input from "../../UI/Input";
-import Button from "../../UI/Button";
-
-
 
 const LoginForm = (props) => {
     const [enteredMail, setEnteredMail] = useState();
@@ -43,9 +40,9 @@ const LoginForm = (props) => {
                         <Input
                             type="submit"
                             className="btnPrimary">Connexion</Input>
-                        <Button
+                        <button
                             className="btnDanger"
-                            onClick={props.changeLoginView}>Annuler</Button>
+                            onClick={props.changeLoginView}>Annuler</button>
                     </div>
                 </div>
 

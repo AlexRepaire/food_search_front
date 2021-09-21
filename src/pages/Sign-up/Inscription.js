@@ -85,7 +85,7 @@ const Inscription = () => {
             inscriptionRestaurant={inscriptionRestaurant}/>,
     ];
 
-    const view = elements.map((item, index) => {
+    const viewElements = elements.map((item, index) => {
         if ((index + 1) === formIndex) {
             return item;
         }
@@ -94,7 +94,7 @@ const Inscription = () => {
     return (
         <div className="flex justify-center h-screen">
             <FormStepBar/>
-            {view}
+            {viewElements}
         </div>
     );
 };
