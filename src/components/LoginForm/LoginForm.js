@@ -1,24 +1,39 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Input from "../../UI/Input";
+import authService from "../../services/security/authService";
+import AuthContext from "../../store/auth-context";
+import {addItem} from "../../services/LocalStorage/localeStorage";
 
-const LoginForm = (props) => {
-    const [enteredMail, setEnteredMail] = useState();
-    const [enteredPassword, setEnteredPassword] = useState();
+const LoginForm = ({changeLoginView}) => {
+    const { auth } = useContext(AuthContext);
+    const [user, setUser] = useState({
+        utiMail: "",
+        utiMdp: ""
+    });
 
-
-    const mailInputChangeHandler = e => {
-        setEnteredMail(e.target.value);
-    }
-
-    const passwordInputChangeHandler = e => {
-        setEnteredPassword(e.target.value);
-    }
+    const handleChange = ({currentTarget}) => {
+        const { name, value} = currentTarget;
+        setUser({...user, [name]: value})
+    };
+    /**
+     * Form login a finir
+     *
+     * @param e
+     */
 
     const formSubmissionHandler = e => {
-        e.preventDefault();
-        console.log();
-    }
+        e.preventDefault();/*
+        authService.login(user)
+            .then((response) => {
+                if (response.data.accessToken) {
+                    //addItem("user", JSON.stringify(response.data));//
+                    auth.login(response.data);
+                }
 
+                return response.data;
+            });*/
+        changeLoginView();
+    }
 
     return (
         <div className="flex justify-center">
@@ -27,12 +42,12 @@ const LoginForm = (props) => {
                 <div className="px-12 pb-10">
                     <div className="w-full mb-2">
                         <div className="flex items-center">
-                            <Input onChange={mailInputChangeHandler} type="email" placeholder="Mail"/>
+                            <Input name="utiMail" onChange={handleChange} type="email" placeholder="Mail"/>
                         </div>
 
                     </div>
                     <div className="w-full mb-2">
-                        <Input onChange={passwordInputChangeHandler} type="password" placeholder="Mot de passe"/>
+                        <Input name="utiMdp" onChange={handleChange} type="password" placeholder="Mot de passe"/>
                         <a href="" >Mot de passe oublié ?</a>
                         <a href="" className="block">Pas de compte ?</a>
                     </div>
@@ -42,7 +57,7 @@ const LoginForm = (props) => {
                             className="btnPrimary">Connexion</Input>
                         <button
                             className="btnDanger"
-                            onClick={props.changeLoginView}>Annuler</button>
+                            onClick={changeLoginView}>Annuler</button>
                     </div>
                 </div>
 

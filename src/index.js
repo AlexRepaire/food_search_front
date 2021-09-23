@@ -4,14 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
-import {Provider} from "react-redux";
-import store from "./store/auth-reducer";
+import {AuthContextProvider} from "./store/auth-context";
+
 
 ReactDOM.render(
   <React.StrictMode>
+      <AuthContextProvider>
           <BrowserRouter>
               <App />
           </BrowserRouter>
+      </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

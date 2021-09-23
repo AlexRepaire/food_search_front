@@ -1,20 +1,39 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styles from './navBar.module.css';
 import LoginForm from "../LoginForm/LoginForm";
 import {Link} from "react-router-dom";
+import AuthContext from "../../store/auth-context";
+import {removeItem} from "../../services/LocalStorage/localeStorage";
 
 const NavBar = () => {
+    const { auth } = useContext(AuthContext);
     const [loginView, setLoginView] = useState(false);
 
-    const startLoginViewHandler = () => {
-        setLoginView(true);
-    }
+    const toggleLoginViewHandler = () => {
+        setLoginView(!loginView);
+    };
 
-    const cancelLoginViewHandler = () => {
-        setLoginView(false);
-    }
+    /**
+     * A FINIR LOGOUT
+     *
+     *
+     */
+    const logout = () => {
+        //removeItem("user");
 
-    const viewLogin = loginView ? <LoginForm changeLoginView={cancelLoginViewHandler}/> : null;
+    };
+
+    const viewLoginForm = loginView ? <LoginForm changeLoginView={toggleLoginViewHandler}/> : null;
+    const viewNavBar = !auth
+        ?
+        <div>
+            <button onClick={toggleLoginViewHandler} className={styles.button}>Connexion</button>
+            <Link to="/inscription" className={styles.button}>Inscription</Link>
+        </div>
+        :
+        <div>
+            <button onClick={logout} className={styles.button}>Déconnexion</button>
+        </div>
 
     return (
         <header>
@@ -30,14 +49,10 @@ const NavBar = () => {
                     </Link>
                 </div>
                 <div>
-                    <div>
-                        <button onClick={startLoginViewHandler} className={styles.button}>Connexion</button>
-                        <Link to="/inscription" className={styles.button}>Inscription</Link>
-                    </div>
-
+                    {viewNavBar}
                 </div>
             </nav>
-            {viewLogin}
+            {viewLoginForm}
         </header>
     );
 };

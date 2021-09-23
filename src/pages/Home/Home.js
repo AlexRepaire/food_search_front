@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchFormHome from "../../components/SearchForm/SearchFormHome";
-import Carousel from "../../components/Carousel/Carousel";
+import CarouselComp from "../../components/Carousel/CarouselComp";
 
 const Home = () => {
 
@@ -16,7 +16,9 @@ const Home = () => {
     return (
         <div>
             <SearchFormHome />
-            <Carousel title="les mieux notés" data={data}/>
+            <CarouselComp title="les mieux notés" data={data}/>
+            <CarouselComp title="les plus proches" data={data}/>
+
         </div>
     );
 };

@@ -14,6 +14,13 @@ const Inscription = () => {
     const [restaurant, setRestaurant] = useState({});
     const [formIndex, setFormIndex] = useState(1);
 
+    /**
+     * REFACTORING A FAIRE
+     *
+     * rendre les méthodes génériques en un composant
+     * Supprimer les states enfants et les méthodes
+     */
+
     const setRoleHandler = data => {
         setRole(data);
     };
