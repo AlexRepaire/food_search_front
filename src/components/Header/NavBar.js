@@ -3,7 +3,7 @@ import styles from './navBar.module.css';
 import LoginForm from "../LoginForm/LoginForm";
 import {Link} from "react-router-dom";
 import AuthContext from "../../store/auth-context";
-import {removeItem} from "../../services/LocalStorage/localeStorage";
+import DropDownNavBar from "./DropDownNavBar";
 
 const NavBar = () => {
     const { auth } = useContext(AuthContext);
@@ -32,7 +32,7 @@ const NavBar = () => {
         </div>
         :
         <div>
-            <button onClick={logout} className={styles.button}>Déconnexion</button>
+            <DropDownNavBar logout={logout}/>
         </div>
 
     return (

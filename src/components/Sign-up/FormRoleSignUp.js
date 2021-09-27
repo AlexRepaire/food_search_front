@@ -11,7 +11,7 @@ const FormRoleSignUp = (props) => {
     };
 
     return (
-        <div className="mt-60">
+        <div className="mt-40 ">
             <div className="text-center mb-16">
                 <h1>Bienvenue sur FoodSearch</h1>
                 <h2>Ne perd pas plus de temps et inscrit toi!</h2>

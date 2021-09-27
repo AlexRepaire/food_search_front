@@ -41,7 +41,7 @@ const SearchFormHome = () => {
                 <FieldForm label="Où ?" placeholder="Ville" name="ou" onChange={handleChange}/>
 
                 <div className="flex items-center justify-evenly">
-                    <Input type="submit" className="btnPrimary">Chercher</Input>
+                    <Input type="submit" className="btnPrimary" value="Rechercher">Chercher</Input>
                 </div>
             </form>
         </div>

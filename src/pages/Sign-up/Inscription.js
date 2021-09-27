@@ -99,8 +99,8 @@ const Inscription = () => {
     });
 
     return (
-        <div className="flex justify-center h-screen">
-            <FormStepBar/>
+        <div className="justify-center h-screen">
+            {formIndex === 1 ? null : <FormStepBar role={role} index={formIndex}/>}
             {viewElements}
         </div>
     );

@@ -59,7 +59,7 @@ const FormAdresseUtilisateurSignUp = ({value, modifyIndex, setAdresseHandler, ro
     };
 
     return (
-        <form onSubmit={nextStep} className="mt-60">
+        <form onSubmit={nextStep} className="mt-60 flex flex-col justify-center w-4/12">
             <h2 className="text-3xl text-center text-gray-700 mb-4">Veuillez saisir l'adresse du {role === "client" ? "client" : "gérant"}</h2>
             <div className="px-12 pb-10">
                 <FieldForm label="Numéro rue" type="number" placeholder="Numéro rue" value={numRue} onChange={numRueHandler}/>
