@@ -1,5 +1,5 @@
 .navBar {
-    @apply bg-green-800 flex items-center flex-wrap p-4 fixed inset-x-0 top-0 justify-between
+    @apply bg-green-800 flex items-center flex-wrap p-4 inset-x-0  justify-between
 }
 
 .button {
@@ -23,5 +23,5 @@ header div div a {
 }
 
 header {
-    @apply pb-16
+    @apply  sticky top-0 z-40
 }
