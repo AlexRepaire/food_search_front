@@ -12,6 +12,7 @@ import NavigationEspaceAdmin from "./pages/Espace/Admin/NavigationEspaceAdmin";
 import EspaceClient from "./pages/Espace/Client/EspaceClient";
 import NavigationEspaceRestaurant from "./pages/Espace/Restaurateur/NavigationEspaceRestaurant";
 import AuthenticatedRoute from "./components/Route/AuthenticatedRoute";
+import NavigationEspaceClient from "./pages/Espace/Client/NavigationEspaceClient";
 
 function App() {
     /*
@@ -34,7 +35,7 @@ function App() {
             <Route path="/inscription" component={Inscription} />
             <Route path="/restaurant" component={Restaurant} exact/>
             <Route path="/restaurant/:id" component={RestaurantDetail} />
-            <AuthenticatedRoute path="/espaceClient" component={EspaceClient}/>
+            <Route path="/espaceClient" component={NavigationEspaceClient}/>
             <AuthenticatedRoute path="/espaceAdmin" component={NavigationEspaceAdmin}/>
             <Route path="/espaceRestaurateur" component={NavigationEspaceRestaurant}/>
             <Route component={NotFound}/>
