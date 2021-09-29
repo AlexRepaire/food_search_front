@@ -36,7 +36,7 @@ function App() {
             <Route path="/restaurant" component={Restaurant} exact/>
             <Route path="/restaurant/:id" component={RestaurantDetail} />
             <Route path="/espaceClient" component={NavigationEspaceClient}/>
-            <AuthenticatedRoute path="/espaceAdmin" component={NavigationEspaceAdmin}/>
+            <Route path="/espaceAdmin" component={NavigationEspaceAdmin}/>
             <Route path="/espaceRestaurateur" component={NavigationEspaceRestaurant}/>
             <Route component={NotFound}/>
         </Switch>
