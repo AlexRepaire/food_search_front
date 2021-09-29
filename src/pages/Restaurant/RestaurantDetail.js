@@ -5,6 +5,7 @@ import SliderRestaurant from "../../components/Restaurant/SliderRestaurant";
 import InformationsRestaurant from '../../components/Restaurant/InformationsRestaurant';
 import AvisRestaurant from "../../components/Restaurant/AvisRestaurant";
 import MenuRestaurant from "../../components/Restaurant/MenuRestaurant";
+import CarteRestaurant from "../../components/Restaurant/CarteRestaurant";
 
 const RestaurantDetail = () => {
 
@@ -16,20 +17,24 @@ const RestaurantDetail = () => {
     };
 
     return (
-        <div className="m-8">
-            <div>
+        <div className="mx-64">
+            <div className="my-8">
                 <SearchFormBar />
             </div>
             <div className="flex">
                 <SliderRestaurant />
                 <InformationsRestaurant/>
             </div>
-            <div>
-                <div>
-                    <button value="avis" onClick={navHandler}>Avis</button>
-                    <button value="menu" onClick={navHandler}>Menu</button>
+            <div className="my-8">
+                <div className="flex w-6/12 border-b-2 my-8">
+                    <button className={nav === "avis" ? 'text-blue-500 font-bold' : 'text-black'} value="avis" onClick={navHandler}>Avis</button>
+                    <div className="border-r-2 mx-8"></div>
+                    <button className={nav === "carte" ? 'text-blue-500 font-bold' : 'text-black'} value="carte" onClick={navHandler}>Carte</button>
+                    <div className="border-r-2 mx-8"></div>
+                    <button className={nav === "menu" ? 'text-blue-500 font-bold' : 'text-black'} value="menu" onClick={navHandler}>Menu</button>
                 </div>
                 {nav === "avis" && <AvisRestaurant/>}
+                {nav === "carte" && <CarteRestaurant/>}
                 {nav === "menu" && <MenuRestaurant/>}
             </div>
         </div>
