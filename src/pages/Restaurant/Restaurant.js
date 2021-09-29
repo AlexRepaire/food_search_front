@@ -1,13 +1,29 @@
-import React, {Fragment} from 'react';
-import {Link, Route} from "react-router-dom";
+import React from 'react';
+import {useLocation} from "react-router-dom";
+import ListRestaurant from "../../components/Restaurant/ListRestaurant";
+import SearchFormBar from "../../components/SearchForm/SearchFormBar";
 
 const Restaurant = () => {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+
+    const isQuoi = queryParams.get('quoi');
+    const isOu = queryParams.get('ou');
 
     return (
-        <Fragment>
-            <h1>Liste des Restaurants cherchés</h1>
+        <div>
+            <div>
+                <SearchFormBar />
+            </div>
+            <div className="my-16 mx-64">
+                <div className="my-16 border-b-2">
+                    <h1>Liste des Restaurants sur {isOu}</h1>
+                </div>
+                <ListRestaurant />
 
-        </Fragment>
+            </div>
+        </div>
+
     );
 };
 
