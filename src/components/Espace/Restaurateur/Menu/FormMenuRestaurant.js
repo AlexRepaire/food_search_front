@@ -123,7 +123,7 @@ const FormMenuRestaurant = () => {
                                 </Disclosure>
                             ))}
                             <br/>
-                            <button className="btnPrimary ">AJOUTER MENU</button>
+                            <button className="btnUpdate rounded-full  ">AJOUTER MENU</button>
                         </form>
 
                         {/* Product grid */}
