@@ -60,7 +60,7 @@ const FormMenuRestaurant = () => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     return (
-        <div className="bg-white flex justify-center">
+        <div className="bg-gray flex justify-center">
 
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

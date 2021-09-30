@@ -17,7 +17,7 @@ const NavigationEspaceRestaurant = () => {
             <Route exact path="/espaceRestaurateur" component={InformationMonRestaurant} />
             <Route path="/espaceRestaurateur/carte" component={CarteMonRestaurant} />
             <Route path="/espaceRestaurateur/menu" component={MenuMonRestaurant} />
-            <Route path="/espaceRestaurateur/commandes" component={ListeCommandeMonRestaurant} />
+            <Route exact path="/espaceRestaurateur/commandes" component={ListeCommandeMonRestaurant} />
             <Route path="/espaceRestaurateur/commandes/:id" component={ListeCommandeMonRestaurant} />
         </Fragment>
 
