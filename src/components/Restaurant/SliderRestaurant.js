@@ -2,23 +2,8 @@ import React, {useState} from 'react';
 import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
 
-const slide = [
-    {
-        url: '/images/restaurant.png',
-        caption: 'Slide 1'
-    },
-    {
-        url: '/images/client.jpg',
-        caption: 'Slide 2'
-    },
-    {
-        url: '/images/coverSearchForm.png',
-        caption: 'Slide 3'
-    },
-];
-
-const SliderRestaurant = () => {
-    const [slideImages, setSlideImages] = useState(slide);
+const SliderRestaurant = ({slideData}) => {
+    const [slideImages, setSlideImages] = useState(slideData);
 
 
     return (

@@ -60,24 +60,13 @@ const FormMenuRestaurant = () => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     return (
-        <div className="bg-gray flex justify-center">
-
-
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div
-                    className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
-                    <h5 className="text-xl font-extrabold tracking-tight text-gray-900">Ajouter un menu</h5>
-                </div>
-
-                <section aria-labelledby="products-heading" className="pt-6 pb-24">
-
-                    <div >
+        <div className="flex justify-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="pt-6 pb-24">
                         {/* Filters */}
-                        <form className="hidden lg:block justify-center w-full">
-
-                            <p className="font-medium text-gray-900">Nom du menu</p>
-                            <FieldForm/>
-
+                        <form className="lg:block justify-center w-full">
+                            <h2 className="text-3xl text-center text-gray-700 mb-4">Ajouter un menu</h2>
+                            <FieldForm label="nom du menu"/>
                             {menu.map((section) => (
                                 <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
                                     {({open}) => (
@@ -123,7 +112,7 @@ const FormMenuRestaurant = () => {
                                 </Disclosure>
                             ))}
                             <br/>
-                            <button className="btnUpdate rounded-full  ">AJOUTER MENU</button>
+                            <button className="btnUpdate">AJOUTER MENU</button>
                         </form>
 
                         {/* Product grid */}
@@ -133,8 +122,7 @@ const FormMenuRestaurant = () => {
                         {/*    /!* /End replace *!/*/}
                         {/*</div>*/}
                     </div>
-                </section>
-            </main>
+            </div>
 
         </div>
     )

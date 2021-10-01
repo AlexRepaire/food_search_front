@@ -5,8 +5,8 @@ import TableauListMenus from "../../../components/Espace/Restaurateur/Menu/Table
 const MenuMonRestaurant = () => {
     return (
         <div className="text-center">
-            <h1>Menu du resto</h1>
             <FormMenuRestaurant/>
+            <h2 className="text-xl text-center uppercase font-bold">Liste des Menus</h2>
             <TableauListMenus/>
         </div>
     );

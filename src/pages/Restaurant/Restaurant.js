@@ -2,7 +2,6 @@ import React from 'react';
 import {useLocation} from "react-router-dom";
 import ListRestaurant from "../../components/Restaurant/ListRestaurant";
 import SearchFormBar from "../../components/SearchForm/SearchFormBar";
-import CarteMonRestaurant from "../Espace/Restaurateur/CarteMonRestaurant";
 
 const Restaurant = () => {
     const location = useLocation();
@@ -22,7 +21,6 @@ const Restaurant = () => {
                 </div>
                 <div className="flex">
                     <ListRestaurant />
-                    <CarteMonRestaurant />
                 </div>
 
             </div>

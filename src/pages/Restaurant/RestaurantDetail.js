@@ -8,7 +8,6 @@ import MenuRestaurant from "../../components/Restaurant/MenuRestaurant";
 import CarteRestaurant from "../../components/Restaurant/CarteRestaurant";
 
 const RestaurantDetail = () => {
-
     const {id} = useParams();
     const [nav, setNav] = useState("avis");
 
@@ -16,13 +15,28 @@ const RestaurantDetail = () => {
         setNav(e.target.value);
     };
 
+    const slide = [
+        {
+            url: '/images/restaurant.png',
+            caption: 'Slide 1'
+        },
+        {
+            url: '/images/client.jpg',
+            caption: 'Slide 2'
+        },
+        {
+            url: '/images/coverSearchForm.png',
+            caption: 'Slide 3'
+        },
+    ];
+
     return (
         <div className="mx-64">
             <div className="my-8">
                 <SearchFormBar />
             </div>
             <div className="flex">
-                <SliderRestaurant />
+                <SliderRestaurant slideData={slide}/>
                 <InformationsRestaurant/>
             </div>
             <div className="my-8">

@@ -4,7 +4,7 @@ import TableauListCommandes from "../../../components/Espace/Restaurateur/ListCo
 const ListeCommandeMonRestaurant = () => {
     return (
         <div>
-            <h1>Liste Commande resto</h1>
+            <h1 className="text-center mt-8">Liste Commande resto</h1>
             <TableauListCommandes/>
         </div>
     );

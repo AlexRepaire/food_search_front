@@ -4,9 +4,9 @@ import TableauListPlats from "../../../components/Espace/Restaurateur/Carte/Tabl
 
 const CarteMonRestaurant = () => {
     return (
-        <div>
+        <div className="text-center">
             <FormCarteRestaurant/>
-            <h2 className="flex md:justify-center uppercase font-bold">Liste des plats/boissons</h2>
+            <h2 className="text-xl text-center uppercase font-bold">Liste des plats/boissons</h2>
             <TableauListPlats/>
         </div>
     );
