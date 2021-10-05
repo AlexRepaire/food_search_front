@@ -5,12 +5,12 @@ import FieldForm from "../../UI/FieldForm";
 
 const FormAdresseUtilisateurSignUp = ({value, modifyIndex, setAdresseHandler, role}) => {
 
-    const [numRue, setNumRue] = useState();
-    const [rue, setRue] = useState();
-    const [compAdresse, setCompAdresse] = useState();
-    const [codePostal, setCodePostal] = useState();
-    const [ville, setVille] = useState();
-    const [pays, setPays] = useState();
+    const [numRue, setNumRue] = useState("");
+    const [rue, setRue] = useState("");
+    const [compAdresse, setCompAdresse] = useState("");
+    const [codePostal, setCodePostal] = useState("");
+    const [ville, setVille] = useState("");
+    const [pays, setPays] = useState("");
 
     const adresse = new Adresse(null,numRue,rue,compAdresse,codePostal,ville,pays);
 

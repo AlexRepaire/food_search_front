@@ -1,8 +1,8 @@
 import http from "../../utils/http-common";
 import {getItem} from "../LocalStorage/localeStorage";
 
-const register = (data) => {
-    return http.post("/auth/signup", data);
+const register = (signupRequest) => {
+    return http.post("/auth/signup", signupRequest);
 };
 
 /**
@@ -11,8 +11,8 @@ const register = (data) => {
  *
  */
 
-const login = (data) => {
-    return http.post("/auth/signin", data)
+const login = (username,password) => {
+    return http.post("/auth/signin", {username,password})
 };
 
 const getCurrentUser = () => {

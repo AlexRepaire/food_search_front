@@ -5,6 +5,9 @@ import FormUserSignUp from "../../components/Sign-up/FormUserSignUp";
 import FormRestaurantSignUp from "../../components/Sign-up/FormRestaurantSignUp";
 import FormAdresseRestaurantSignUp from "../../components/Sign-up/FormAdresseRestaurantSignUp";
 import FormStepBar from "../../components/Sign-up/FormStepBar";
+import adresseService from "../../services/adresseService";
+import userService from "../../services/security/userService";
+import authService from "../../services/security/authService";
 
 const Inscription = () => {
     const [role, setRole] = useState();
@@ -41,19 +44,19 @@ const Inscription = () => {
         setRestaurant(data);
     };
 
-    const inscriptionUtilisateur = () => {
-        //Insérer adresse dans db
-        //Récuperer response et redefinir le user puis insérer le user en db
-        const utilisateur = {...utilisateur};
-        utilisateur.fsAdresseByUtiId = adresse;
-        setUtilisateur(utilisateur);
+    const inscriptionUtilisateur = async () => {
+        const response = await adresseService.create(adresse);
+        const data = await response.data;
+        let user = {...utilisateur, fsAdresseByUtiId: data, fsRoleByUtiIdRol: role};
+        setUtilisateur(user);
+        await authService.register(user)
     };
 
     const inscriptionRestaurant = () => {
         //Insérer adresse dans db
         //Récuperer response et redefinir le user(gérant) puis insérer le user en db
         const newUtilisateur = {...utilisateur};
-        newUtilisateur.fsAdresseByUtiId = adresse;
+        newUtilisateur.fsAdresseByUtiId = adresse.adrId;
         setUtilisateur(newUtilisateur);
 
         const newRestaurant = {...restaurant};

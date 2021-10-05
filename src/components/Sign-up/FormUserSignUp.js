@@ -1,22 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import Input from "../../UI/Input";
-import {Utilisateur} from "../../models/utilisateur";
 import FieldForm from "../../UI/FieldForm";
 
 const FormUserSignUp = ({modifyIndex, value, role, inscriptionUtilisateur, setUtilisateurHandler}) => {
-    const [nom, setNom] = useState();
-    const [prenom, setPrenom] = useState();
-    const [tel, setTel] = useState();
-    const [pseudo, setPseudo] = useState();
-    const [mail, setMail] = useState();
-    const [mdp, setMdp] = useState();
-    const [mdp2, setMdp2] = useState();
-    const [ddn, setDdn] = useState(); //date de naissance
+    const [nom, setNom] = useState("");
+    const [prenom, setPrenom] = useState("");
+    const [tel, setTel] = useState("");
+    const [pseudo, setPseudo] = useState("");
+    const [mail, setMail] = useState("");
+    const [mdp, setMdp] = useState("");
+    const [mdp2, setMdp2] = useState("");
+    const [ddn, setDdn] = useState(new Date()); //date de naissance
 
     const [error, setError] = useState(false);
-    const [passwordIsValid, setPasswordIsValid] = useState();
+    const [passwordIsValid, setPasswordIsValid] = useState("true");
 
-    const utilisateur = new Utilisateur(null, nom, prenom, tel, pseudo, mail, mdp, ddn);
+    const user = {
+        utiMail: mail,
+        utiMdp: mdp,
+        utiDdn: ddn,
+        utiNom: nom,
+        utiPrenom: prenom,
+        utiTel: tel,
+        utiPseudo: pseudo,
+        fsAdresseByUtiId: null,
+        fsRoleByUtiIdRol: null
+    }
 
     useEffect(()=>{
         setNom(value.utiNom);
@@ -26,7 +35,6 @@ const FormUserSignUp = ({modifyIndex, value, role, inscriptionUtilisateur, setUt
         setMail(value.utiMail);
         setMdp(value.utiMdp);
         setDdn(value.utiDdn);
-        console.log(role)
     },[]);
 
     const nomHandler = e => {
@@ -87,12 +95,11 @@ const FormUserSignUp = ({modifyIndex, value, role, inscriptionUtilisateur, setUt
 */
 
         if (passwordIsValid){
-            setUtilisateurHandler(utilisateur);
+            setUtilisateurHandler(user);
             if (role === "restaurant") {
                 modifyIndex(4);
             } else {
-                const inscription = inscriptionUtilisateur;
-                alert("inscription SUCCESS")
+                inscriptionUtilisateur();
                 //inscription();
             }
         } else {
@@ -102,7 +109,7 @@ const FormUserSignUp = ({modifyIndex, value, role, inscriptionUtilisateur, setUt
     };
 
     const prevStep = e => {
-        setUtilisateurHandler(utilisateur);
+        setUtilisateurHandler(user);
         modifyIndex(2);
     };
 
