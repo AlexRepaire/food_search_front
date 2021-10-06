@@ -6,25 +6,15 @@ import AuthContext from "../../store/auth-context";
 import DropDownNavBar from "./DropDownNavBar";
 
 const NavBar = () => {
-    const { auth } = useContext(AuthContext);
+    const auth = useContext(AuthContext);
     const [loginView, setLoginView] = useState(false);
 
     const toggleLoginViewHandler = () => {
         setLoginView(!loginView);
     };
 
-    /**
-     * A FINIR LOGOUT
-     *
-     *
-     */
-    const logout = () => {
-        //removeItem("user");
-
-    };
-
     const viewLoginForm = loginView ? <LoginForm changeLoginView={toggleLoginViewHandler}/> : null;
-    const viewNavBar = !auth
+    const viewNavBar = !auth.isLoggedIn
         ?
         <div>
             <button onClick={toggleLoginViewHandler} className={styles.button}>Connexion</button>
@@ -32,7 +22,7 @@ const NavBar = () => {
         </div>
         :
         <div>
-            <DropDownNavBar logout={logout}/>
+            <DropDownNavBar logout={auth.logout}/>
         </div>
 
     return (

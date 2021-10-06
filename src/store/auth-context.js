@@ -6,7 +6,7 @@ const AuthContext = React.createContext({
     token: '',
     isLoggedIn: false,
     user: {},
-    login: (token) => {},
+    loginUser: (user,token) => {},
     logout: () => {},
 });
 
@@ -18,29 +18,23 @@ export const AuthContextProvider = (props) => {
     const [user, setUser] = useState(initialUser);
     const userIsLoggedIn = !!token;
 
-    const loginHandler = (data) => {
-        setToken(data.token);
-        setUser(data.user);
-        //addItem("user", JSON.stringify(user));
-        //addItem("token", JSON.stringify(token));
+    const loginHandler = (user,token) => {
+        setToken(token);
+        setUser(user);
+        addItem("user", JSON.stringify(user));
+        addItem("token", JSON.stringify(token));
+
     };
 
     const logoutHandler = () => {
         setToken(null);
         setUser(null);
-        //removeItem("user");
-        //removeItem("token");
+        removeItem("user");
+        removeItem("token");
     };
 
-    /**
-     * VERIFIER LE TRUE OU FALSE DU TOKEN
-     *
-     * @param token
-     * @returns {boolean}
-     */
-
-    const tokenIsValid = token => {
-        const { exp } = jwtDecode(token);
+    const calculateRemainingTime = () => {
+        const exp = jwtDecode(token.exp);
         return exp * 1000 > new Date().getTime();
     };
 
@@ -48,7 +42,7 @@ export const AuthContextProvider = (props) => {
         token: token,
         isLoggedIn: userIsLoggedIn,
         user: user,
-        login: loginHandler,
+        loginUser: loginHandler,
         logout: logoutHandler
     };
 

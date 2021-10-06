@@ -1,6 +1,6 @@
 import './App.css';
 import NavBar from "./components/Header/NavBar";
-import React, {Fragment, useContext, useState} from "react";
+import React, {Fragment} from "react";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import {Redirect, Route, Switch} from "react-router-dom";
@@ -9,20 +9,11 @@ import Inscription from "./pages/Sign-up/Inscription";
 import NotFound from "./pages/NotFound";
 import RestaurantDetail from "./pages/Restaurant/RestaurantDetail";
 import NavigationEspaceAdmin from "./pages/Espace/Admin/NavigationEspaceAdmin";
-import EspaceClient from "./pages/Espace/Client/EspaceClient";
 import NavigationEspaceRestaurant from "./pages/Espace/Restaurateur/NavigationEspaceRestaurant";
 import AuthenticatedRoute from "./components/Route/AuthenticatedRoute";
 import NavigationEspaceClient from "./pages/Espace/Client/NavigationEspaceClient";
 
 function App() {
-    /*
-    const { auth } = useContext(AuthContext);
-    const role = auth.user.role;
-    */
-
-    /*
-    Changer AuthenticatedRoute par Route pour coder sans authentification
-     */
 
   return (
     <Fragment>
@@ -35,9 +26,9 @@ function App() {
             <Route path="/inscription" component={Inscription} />
             <Route path="/restaurant" component={Restaurant} exact/>
             <Route path="/restaurant/:id" component={RestaurantDetail} />
-            <Route path="/espaceClient" component={NavigationEspaceClient}/>
-            <Route path="/espaceAdmin" component={NavigationEspaceAdmin}/>
-            <Route path="/espaceRestaurateur" component={NavigationEspaceRestaurant}/>
+            <AuthenticatedRoute path="/espaceClient" component={NavigationEspaceClient} roleRequired="ROLE_CLIENT"/>
+            <AuthenticatedRoute path="/espaceAdmin" component={NavigationEspaceAdmin} roleRequired="ROLE_ADMIN"/>
+            <AuthenticatedRoute path="/espaceRestaurateur" component={NavigationEspaceRestaurant} roleRequired="ROLE_RESTAURANT"/>
             <Route component={NotFound}/>
         </Switch>
         <Footer/>

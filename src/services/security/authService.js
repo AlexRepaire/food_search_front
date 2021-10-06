@@ -11,8 +11,8 @@ const register = (signupRequest) => {
  *
  */
 
-const login = (username,password) => {
-    return http.post("/auth/signin", {username,password})
+const login = (loginRequest) => {
+    return http.post("/auth/signin", loginRequest)
 };
 
 const getCurrentUser = () => {

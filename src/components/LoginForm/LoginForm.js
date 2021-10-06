@@ -2,10 +2,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import Input from "../../UI/Input";
 import authService from "../../services/security/authService";
 import AuthContext from "../../store/auth-context";
-import {addItem} from "../../services/LocalStorage/localeStorage";
 
 const LoginForm = ({changeLoginView}) => {
-    const { auth } = useContext(AuthContext);
+    const auth  = useContext(AuthContext);
     const [isLoaded, setIsLoaded] = useState(false);
     const [user, setUser] = useState({
         utiMail: "",
@@ -16,26 +15,24 @@ const LoginForm = ({changeLoginView}) => {
         const { name, value} = currentTarget;
         setUser({...user, [name]: value})
     };
-    /**
-     * Form login a finir
-     *
-     * @param e
-     */
 
     const formSubmissionHandler = e => {
-        e.preventDefault();/*
+        e.preventDefault();
         setIsLoaded(true);
         authService.login(user)
             .then((response) => {
                 if (response.data.accessToken) {
-                    //addItem("user", JSON.stringify(response.data));//
-                    auth.login(response.data);
+                    const userData = {
+                        'id': response.data.id,
+                        'mail': response.data.email,
+                        'role': response.data.roles[0].authority
+                    }
+                    auth.loginUser(userData, response.data.accessToken);
                 }
-
                 return response.data;
-            });*/
-        //setIsLoaded(false);
-        //changeLoginView();
+            });
+        setIsLoaded(false);
+        changeLoginView();
     }
 
 

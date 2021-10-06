@@ -1,12 +1,14 @@
-import { Fragment } from 'react'
+import {Fragment, useContext} from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import {Link} from "react-router-dom";
+import AuthContext from "../../store/auth-context";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 const DropDownNavBar = (props) => {
+    const auth = useContext(AuthContext);
     /**
      *
      * CONTEXT ROLE POUR GERER LES BOUTONS

@@ -93,9 +93,9 @@ const FormUserSignUp = ({modifyIndex, value, role, inscriptionUtilisateur, setUt
             setError(false);
         }
 */
+        setUtilisateurHandler(user);
 
         if (passwordIsValid){
-            setUtilisateurHandler(user);
             if (role === "restaurant") {
                 modifyIndex(4);
             } else {
