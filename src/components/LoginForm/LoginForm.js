@@ -29,7 +29,6 @@ const LoginForm = ({changeLoginView}) => {
                     }
                     auth.loginUser(userData, response.data.accessToken);
                 }
-                return response.data;
             });
         setIsLoaded(false);
         changeLoginView();

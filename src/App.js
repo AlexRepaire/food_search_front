@@ -1,6 +1,6 @@
 import './App.css';
 import NavBar from "./components/Header/NavBar";
-import React, {Fragment} from "react";
+import React, {Fragment, useContext} from "react";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import {Redirect, Route, Switch} from "react-router-dom";
@@ -23,8 +23,10 @@ import CarteMonRestaurant from "./pages/Espace/Restaurateur/CarteMonRestaurant";
 import MenuMonRestaurant from "./pages/Espace/Restaurateur/MenuMonRestaurant";
 import ListeCommandeMonRestaurant from "./pages/Espace/Restaurateur/ListeCommandeMonRestaurant";
 import CommandeDetails from "./pages/Espace/Restaurateur/CommandeDetails";
+import AuthContext from "./store/auth-context";
 
 function App() {
+    const auth  = useContext(AuthContext);
 
   return (
     <Fragment>
@@ -34,7 +36,9 @@ function App() {
                 <Redirect to='/home' />
             </Route>
             <Route path="/home" component={Home} />
+            {!auth.isLoggedIn &&
             <Route path="/inscription" component={Inscription} />
+            }
             <Route path="/restaurant" component={Restaurant} exact/>
             <Route path="/restaurant/:id" component={RestaurantDetail} />
             <AuthenticatedRoute exact path="/espaceClient" component={EspaceClient} roleRequired="ROLE_CLIENT"/>

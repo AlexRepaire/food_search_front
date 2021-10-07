@@ -1,8 +1,28 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Input from "../../UI/Input";
 import FieldForm from "../../UI/FieldForm";
+import specialiteService from "../../services/specialiteService";
 
 const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscriptionRestaurant}) => {
+
+    const [specialite, setSpecialite] = useState([]);
+
+    const recupData = useCallback(async () => {
+        const arraySpecialite = await specialiteService.getAll();
+        const data = await arraySpecialite.data;
+        const dataSpe = await data.map((spec) =>{
+            return {
+                speId: spec.speId,
+                speType: spec.speType
+            };
+        });
+        setSpecialite(dataSpe);
+    },[]);
+
+    useEffect( ()=>{
+        recupData();
+    },[recupData])
+
 
     const nextStep = e => {
         e.preventDefault();
@@ -14,13 +34,7 @@ const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscr
     };
 
     //données de test
-    const dataSpecialite = [
-        {id:1, type: "Pizzeria"},
-        {id:2, type: "Indien"},
-        {id:3, type: "Chinois"},
-        {id:4, type: "Japonais"},
-        {id:5, type: "Italiens"},
-    ];
+
 
     return (
         <form onSubmit={nextStep} className="mt-60 flex flex-col justify-center w-4/12">
@@ -28,8 +42,14 @@ const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscr
             <div className="px-12 pb-10">
                 <FieldForm label="Nom" type="text" placeholder="Nom" name="restNom" value={restaurant.restNom} onChange={setRestaurantHandler}/>
                 <FieldForm label="Téléphone" type="number" placeholder="Téléphone" name="restTel" value={restaurant.restTel} onChange={setRestaurantHandler}/>
-                <FieldForm label="Specialité" type="text" placeholder="Specialité" name="fsSpecialiteByRestIdSpe" value={restaurant.fsSpecialiteByRestIdSpe} onChange={setRestaurantHandler}/>
-
+                <div className="w-full mb-2">
+                    <label>Specialité</label>
+                    <select name="fsSpecialiteByRestIdSpe" onChange={setRestaurantHandler}>
+                        {specialite.map((res,index)=>(
+                            <option key={index} value={parseInt(res.speId)}>{res.speType}</option>
+                        ))}
+                    </select>
+                </div>
                 <div className="flex items-center justify-evenly">
                     <button
                         className="btnDanger"

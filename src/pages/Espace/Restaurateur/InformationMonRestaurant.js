@@ -24,6 +24,7 @@ const InformationMonRestaurant = () => {
         },
     ];
 
+
     return (
         <div className="mx-64">
             <NavigationEspaceRestaurant/>
