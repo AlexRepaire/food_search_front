@@ -11,7 +11,18 @@ import RestaurantDetail from "./pages/Restaurant/RestaurantDetail";
 import NavigationEspaceAdmin from "./pages/Espace/Admin/NavigationEspaceAdmin";
 import NavigationEspaceRestaurant from "./pages/Espace/Restaurateur/NavigationEspaceRestaurant";
 import AuthenticatedRoute from "./components/Route/AuthenticatedRoute";
-import NavigationEspaceClient from "./pages/Espace/Client/NavigationEspaceClient";
+import Panier from "./pages/Espace/Client/Panier";
+import EspaceClient from "./pages/Espace/Client/EspaceClient";
+import MessageDetail from "./pages/Espace/Admin/MessageDetail";
+import ListeCommentaires from "./pages/Espace/Admin/ListeCommentaires";
+import CommentaireDetails from "./pages/Espace/Admin/CommentaireDetails";
+import ContacterUtilisateur from "./pages/Espace/Admin/ContacterUtilisateur";
+import ListeMessages from "./pages/Espace/Admin/ListeMessages";
+import InformationMonRestaurant from "./pages/Espace/Restaurateur/InformationMonRestaurant";
+import CarteMonRestaurant from "./pages/Espace/Restaurateur/CarteMonRestaurant";
+import MenuMonRestaurant from "./pages/Espace/Restaurateur/MenuMonRestaurant";
+import ListeCommandeMonRestaurant from "./pages/Espace/Restaurateur/ListeCommandeMonRestaurant";
+import CommandeDetails from "./pages/Espace/Restaurateur/CommandeDetails";
 
 function App() {
 
@@ -26,9 +37,21 @@ function App() {
             <Route path="/inscription" component={Inscription} />
             <Route path="/restaurant" component={Restaurant} exact/>
             <Route path="/restaurant/:id" component={RestaurantDetail} />
-            <AuthenticatedRoute path="/espaceClient" component={NavigationEspaceClient} roleRequired="ROLE_CLIENT"/>
-            <AuthenticatedRoute path="/espaceAdmin" component={NavigationEspaceAdmin} roleRequired="ROLE_ADMIN"/>
-            <AuthenticatedRoute path="/espaceRestaurateur" component={NavigationEspaceRestaurant} roleRequired="ROLE_RESTAURANT"/>
+            <AuthenticatedRoute exact path="/espaceClient" component={EspaceClient} roleRequired="ROLE_CLIENT"/>
+            <AuthenticatedRoute path="/espaceClient/panier" component={Panier} roleRequired="ROLE_CLIENT"/>
+
+            <AuthenticatedRoute exact path="/espaceAdmin" component={ListeMessages} roleRequired="ROLE_ADMIN"/>
+            <AuthenticatedRoute exact path="/espaceAdmin/message/:id" component={MessageDetail} roleRequired="ROLE_ADMIN"/>
+            <AuthenticatedRoute exact path="/espaceAdmin/ListeCommentairesParRestaurant" component={ListeCommentaires} roleRequired="ROLE_ADMIN"/>
+            <AuthenticatedRoute path="/espaceAdmin/ListeCommentairesParRestaurant/:id" component={CommentaireDetails} roleRequired="ROLE_ADMIN"/>
+            <AuthenticatedRoute path="/espaceAdmin/ContacterUtilisateur" component={ContacterUtilisateur} roleRequired="ROLE_ADMIN"/>
+
+            <AuthenticatedRoute exact path="/espaceRestaurateur" component={InformationMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
+            <AuthenticatedRoute path="/espaceRestaurateur/carte" component={CarteMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
+            <AuthenticatedRoute path="/espaceRestaurateur/menu" component={MenuMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
+            <AuthenticatedRoute exact path="/espaceRestaurateur/commandes" component={ListeCommandeMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
+            <AuthenticatedRoute path="/espaceRestaurateur/commandes/:id" component={CommandeDetails} roleRequired="ROLE_RESTAURANT"/>
+
             <Route component={NotFound}/>
         </Switch>
         <Footer/>

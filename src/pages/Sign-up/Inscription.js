@@ -6,15 +6,47 @@ import FormRestaurantSignUp from "../../components/Sign-up/FormRestaurantSignUp"
 import FormAdresseRestaurantSignUp from "../../components/Sign-up/FormAdresseRestaurantSignUp";
 import FormStepBar from "../../components/Sign-up/FormStepBar";
 import adresseService from "../../services/adresseService";
-import userService from "../../services/security/userService";
 import authService from "../../services/security/authService";
 
 const Inscription = () => {
     const [role, setRole] = useState();
-    const [adresse, setAdresse] = useState({});
-    const [adresseRestaurant, setAdresseRestaurant] = useState({});
-    const [utilisateur, setUtilisateur] = useState({});
-    const [restaurant, setRestaurant] = useState({});
+    const [adresse, setAdresse] = useState({
+        adrNumero: '',
+        adrRue: '',
+        adrCplAdr: '',
+        adrCp: '',
+        adrVille: '',
+        adrPays: ''
+    })
+
+    const [adresseRestaurant, setAdresseRestaurant] = useState({
+        adrNumero: '',
+        adrRue: '',
+        adrCplAdr: '',
+        adrCp: '',
+        adrVille: '',
+        adrPays: '',
+    });
+    const [utilisateur, setUtilisateur] = useState({
+        utiMail:'',
+        utiMdp:'',
+        utiDdn:'',
+        utiNom:'',
+        utiPrenom:'',
+        utiTel:'',
+        utiPseudo:'',
+        fsAdresseByUtiId:'',
+        fsRoleByUtiIdRol:'',
+    });
+    const [restaurant, setRestaurant] = useState({
+        restNom:'',
+        restTel:'',
+        fsCommandesByRestId:'',
+        fsPlatsRestaurantsByRestId:'',
+        fsAdresseByRestId:'',
+        fsUtilisateurByRestIdUti:'',
+        fsSpecialiteByRestIdSpe:'',
+    });
     const [formIndex, setFormIndex] = useState(1);
 
     /**
@@ -28,30 +60,36 @@ const Inscription = () => {
         setRole(data);
     };
 
-    const setAdresseHandler = data => {
-      setAdresse(data);
+    const setAdresseHandler = ({currentTarget}) => {
+        const { name, value} = currentTarget;
+        setAdresse({...adresse, [name]: value})
     };
 
-    const setAdresseRestaurantHandler = data => {
-        setAdresseRestaurant(data);
+    const setAdresseRestaurantHandler = ({currentTarget}) => {
+        const { name, value} = currentTarget;
+        setAdresseRestaurant({...adresseRestaurant, [name]: value})
     };
 
-    const setUtilisateurHandler = data => {
-        setUtilisateur(data);
+    const setUtilisateurHandler = ({currentTarget}) => {
+        const { name, value} = currentTarget;
+        setUtilisateur({...utilisateur, [name]: value})
     };
 
-    const setRestaurantHandler = data => {
-        setRestaurant(data);
+    const setRestaurantHandler =  ({currentTarget}) => {
+        const { name, value} = currentTarget;
+        setRestaurant({...restaurant, [name]: value})
     };
 
     const inscriptionUtilisateur = async () => {
         const response = await adresseService.create(adresse);
         const data = await response.data;
         let user = {...utilisateur, fsAdresseByUtiId: data, fsRoleByUtiIdRol: role};
-        setUtilisateur(user);
-        await authService.register(user)
+        await authService.register(user);
     };
 
+    /**
+     * FINIR LA PARTIE RESTAURANT
+     */
     const inscriptionRestaurant = () => {
         //Insérer adresse dans db
         //Récuperer response et redefinir le user(gérant) puis insérer le user en db
@@ -75,22 +113,22 @@ const Inscription = () => {
             setRoleHandler={setRoleHandler}/>,
         <FormAdresseUtilisateurSignUp
             modifyIndex={modifyIndex}
-            value={adresse}
             role={role}
+            adresse={adresse}
             setAdresseHandler={setAdresseHandler}/>,
         <FormUserSignUp
             modifyIndex={modifyIndex}
-            value={utilisateur}
+            utilisateur={utilisateur}
             role={role}
             inscriptionUtilisateur={inscriptionUtilisateur}
             setUtilisateurHandler={setUtilisateurHandler}/>,
         <FormAdresseRestaurantSignUp
             modifyIndex={modifyIndex}
-            value={adresseRestaurant}
+            adresseRestaurant={adresseRestaurant}
             setAdresseRestaurantHandler={setAdresseRestaurantHandler}/>,
         <FormRestaurantSignUp
             modifyIndex={modifyIndex}
-            value={restaurant}
+            restaurant={restaurant}
             setRestaurantHandler={setRestaurantHandler}
             inscriptionRestaurant={inscriptionRestaurant}/>,
     ];

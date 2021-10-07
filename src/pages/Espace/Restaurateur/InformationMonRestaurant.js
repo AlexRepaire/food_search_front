@@ -1,6 +1,7 @@
 import React from 'react';
 import InformationsRestaurant from "../../../components/Espace/Restaurateur/Infos/InformationsRestaurant";
 import SliderRestaurant from "../../../components/Restaurant/SliderRestaurant";
+import NavigationEspaceRestaurant from "./NavigationEspaceRestaurant";
 
 const InformationMonRestaurant = () => {
 
@@ -25,6 +26,7 @@ const InformationMonRestaurant = () => {
 
     return (
         <div className="mx-64">
+            <NavigationEspaceRestaurant/>
             <div className="flex mt-8">
                 <InformationsRestaurant />
                 <SliderRestaurant slideData={slide}/>

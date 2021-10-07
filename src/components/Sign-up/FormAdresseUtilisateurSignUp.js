@@ -1,60 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Input from "../../UI/Input";
-import {Adresse} from "../../models/adresse";
 import FieldForm from "../../UI/FieldForm";
 
-const FormAdresseUtilisateurSignUp = ({value, modifyIndex, setAdresseHandler, role}) => {
-
-    const [numRue, setNumRue] = useState("");
-    const [rue, setRue] = useState("");
-    const [compAdresse, setCompAdresse] = useState("");
-    const [codePostal, setCodePostal] = useState("");
-    const [ville, setVille] = useState("");
-    const [pays, setPays] = useState("");
-
-    const adresse = new Adresse(null,numRue,rue,compAdresse,codePostal,ville,pays);
-
-    useEffect(()=>{
-        setNumRue(value.adrNumero);
-        setRue(value.adrRue);
-        setCompAdresse(value.adrCplAdr);
-        setCodePostal(value.adrCp);
-        setVille(value.adrVille);
-        setPays(value.adrVille);
-    },[])
-
-    const numRueHandler = e => {
-        setNumRue(e.target.value);
-    };
-
-    const rueHandler = e => {
-        setRue(e.target.value);
-    };
-
-    const compRueHandler = e => {
-        setCompAdresse(e.target.value);
-    };
-
-    const codePostalHandler = e => {
-        setCodePostal(e.target.value);
-    };
-
-    const villeHandler = e => {
-        setVille(e.target.value);
-    };
-
-    const paysHandler = e => {
-        setPays(e.target.value);
-    };
+const FormAdresseUtilisateurSignUp = ({modifyIndex, role, setAdresseHandler, adresse}) => {
 
     const nextStep = e => {
       e.preventDefault();
-      setAdresseHandler(adresse);
       modifyIndex(3);
     };
 
     const prevStep = e => {
-        setAdresseHandler(adresse);
         modifyIndex(1);
     };
 
@@ -62,12 +17,12 @@ const FormAdresseUtilisateurSignUp = ({value, modifyIndex, setAdresseHandler, ro
         <form onSubmit={nextStep} className="mt-60 flex flex-col justify-center w-4/12">
             <h2 className="text-3xl text-center text-gray-700 mb-4">Veuillez saisir l'adresse du {role === "client" ? "client" : "gérant"}</h2>
             <div className="px-12 pb-10">
-                <FieldForm label="Numéro rue" type="number" placeholder="Numéro rue" value={numRue} onChange={numRueHandler}/>
-                <FieldForm label="Rue" type="text" placeholder="rue" value={rue} onChange={rueHandler}/>
-                <FieldForm label="Complément d'adresse" type="text" placeholder="Complément d'adresse" value={compAdresse} onChange={compRueHandler}/>
-                <FieldForm label="Code postal" type="number" placeholder="Code postal" value={codePostal} onChange={codePostalHandler}/>
-                <FieldForm label="Ville" type="text" placeholder="Ville" value={ville} onChange={villeHandler}/>
-                <FieldForm label="Pays" type="text" placeholder="Pays" value={pays} onChange={paysHandler}/>
+                <FieldForm label="Numéro rue" type="number" placeholder="Numéro rue" name="adrNumero" value={adresse.adrNumero} onChange={setAdresseHandler}/>
+                <FieldForm label="Rue" type="text" placeholder="rue" name="adrRue" value={adresse.adrRue} onChange={setAdresseHandler}/>
+                <FieldForm label="Complément d'adresse" type="text" name="adrCplAdr" placeholder="Complément d'adresse" value={adresse.adrCplAdr} onChange={setAdresseHandler}/>
+                <FieldForm label="Code postal" type="number" placeholder="Code postal" name="adrCp" value={adresse.adrCp} onChange={setAdresseHandler}/>
+                <FieldForm label="Ville" type="text" placeholder="Ville" name="adrVille" value={adresse.adrVille} onChange={setAdresseHandler}/>
+                <FieldForm label="Pays" type="text" placeholder="Pays" name="adrPays" value={adresse.adrPays} onChange={setAdresseHandler}/>
                 <div className="flex items-center justify-evenly">
                     <button
                         className="btnDanger"
