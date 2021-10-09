@@ -1,10 +1,6 @@
-import React, {Fragment} from 'react';
-import {Link, Route} from "react-router-dom";
-import InformationMonRestaurant from "../Restaurateur/InformationMonRestaurant";
-import CarteMonRestaurant from "./CarteMonRestaurant";
-import MenuMonRestaurant from "./MenuMonRestaurant";
-import ListeCommandeMonRestaurant from "./ListeCommandeMonRestaurant";
-import CommandeDetails from "./CommandeDetails";
+import React from 'react';
+import {Link} from "react-router-dom";
+
 
 const NavigationEspaceRestaurant = () => {
     return (

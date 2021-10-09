@@ -4,7 +4,6 @@ import FieldForm from "../../UI/FieldForm";
 import specialiteService from "../../services/specialiteService";
 
 const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscriptionRestaurant}) => {
-
     const [specialite, setSpecialite] = useState([]);
 
     const recupData = useCallback(async () => {
@@ -30,11 +29,8 @@ const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscr
     };
 
     const prevStep = e => {
-        modifyIndex(4);
+        modifyIndex(1);
     };
-
-    //données de test
-
 
     return (
         <form onSubmit={nextStep} className="mt-60 flex flex-col justify-center w-4/12">

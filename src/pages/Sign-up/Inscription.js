@@ -24,14 +24,7 @@ const Inscription = () => {
         adrPays: ''
     })
 
-    const [adresseRestaurant, setAdresseRestaurant] = useState({
-        adrNumero: '',
-        adrRue: '',
-        adrCplAdr: '',
-        adrCp: '',
-        adrVille: '',
-        adrPays: '',
-    });
+
     const [utilisateur, setUtilisateur] = useState({
         utiMail:'',
         utiMdp:'',
@@ -43,15 +36,7 @@ const Inscription = () => {
         fsAdresseByUtiId:'',
         fsRoleByUtiIdRol:'',
     });
-    const [restaurant, setRestaurant] = useState({
-        restNom:'',
-        restTel:'',
-        fsCommandesByRestId:'',
-        fsPlatsRestaurantsByRestId:'',
-        fsAdresseByRestId:'',
-        fsUtilisateurByRestIdUti:'',
-        fsSpecialiteByRestIdSpe:'1',
-    });
+
     const [formIndex, setFormIndex] = useState(1);
 
     const setRoleHandler = data => {
@@ -63,19 +48,9 @@ const Inscription = () => {
         setAdresse({...adresse, [name]: value})
     };
 
-    const setAdresseRestaurantHandler = ({currentTarget}) => {
-        const { name, value} = currentTarget;
-        setAdresseRestaurant({...adresseRestaurant, [name]: value})
-    };
-
     const setUtilisateurHandler = ({currentTarget}) => {
         const { name, value} = currentTarget;
         setUtilisateur({...utilisateur, [name]: value})
-    };
-
-    const setRestaurantHandler =  ({currentTarget}) => {
-        const { name, value} = currentTarget;
-        setRestaurant({...restaurant, [name]: value})
     };
 
     const inscriptionUtilisateur = async () => {
@@ -110,22 +85,7 @@ const Inscription = () => {
     /**
      * FINIR LA PARTIE RESTAURANT
      */
-    const inscriptionRestaurant = async () => {
-        //Insérer adresse dans db
-        //Récuperer response et redefinir le user(gérant) puis insérer le user en db
 
-        const response = await adresseService.create(adresse);
-        const data = await response.data;
-        let user = {...utilisateur, fsAdresseByUtiId: data, fsRoleByUtiIdRol: role};
-        const utilisateurResponse = await authService.register(user);
-
-        const newRestaurant = {...restaurant};
-        newRestaurant.fsAdresseByRestId = adresseRestaurant;
-        newRestaurant.fsUtilisateurByRestIdUti = utilisateur;
-        setRestaurant(newRestaurant);
-
-        console.log(restaurant)
-    };
 
     const modifyIndex = (index) => {
         setFormIndex(index);
@@ -143,19 +103,8 @@ const Inscription = () => {
         <FormUserSignUp
             modifyIndex={modifyIndex}
             utilisateur={utilisateur}
-            role={role}
             inscriptionUtilisateur={inscriptionUtilisateur}
             setUtilisateurHandler={setUtilisateurHandler}/>,
-        <FormAdresseRestaurantSignUp
-            modifyIndex={modifyIndex}
-            adresseRestaurant={adresseRestaurant}
-            setAdresseRestaurantHandler={setAdresseRestaurantHandler}/>,
-        <FormRestaurantSignUp
-            modifyIndex={modifyIndex}
-            restaurant={restaurant}
-            setRestaurantHandler={setRestaurantHandler}
-            inscriptionRestaurant={inscriptionRestaurant}
-/>,
     ];
 
     const viewElements = elements.map((item, index) => {
@@ -166,7 +115,7 @@ const Inscription = () => {
 
     return (
         <div className="justify-center h-screen">
-            {formIndex === 1 ? null : <FormStepBar role={role} index={formIndex}/>}
+            <FormStepBar role={"utilisateur"} index={formIndex}/>
             {viewElements}
         </div>
     );
