@@ -8,8 +8,6 @@ import Restaurant from "./pages/Restaurant/Restaurant";
 import Inscription from "./pages/Sign-up/Inscription";
 import NotFound from "./pages/NotFound";
 import RestaurantDetail from "./pages/Restaurant/RestaurantDetail";
-import NavigationEspaceAdmin from "./pages/Espace/Admin/NavigationEspaceAdmin";
-import NavigationEspaceRestaurant from "./pages/Espace/Restaurateur/NavigationEspaceRestaurant";
 import AuthenticatedRoute from "./components/Route/AuthenticatedRoute";
 import Panier from "./pages/Espace/Client/Panier";
 import EspaceClient from "./pages/Espace/Client/EspaceClient";
@@ -24,6 +22,8 @@ import MenuMonRestaurant from "./pages/Espace/Restaurateur/MenuMonRestaurant";
 import ListeCommandeMonRestaurant from "./pages/Espace/Restaurateur/ListeCommandeMonRestaurant";
 import CommandeDetails from "./pages/Espace/Restaurateur/CommandeDetails";
 import AuthContext from "./store/auth-context";
+import {RestConextProvider} from "./store/rest-context";
+import InscriptionRestaurant from "./pages/Sign-up/InscriptionRestaurant";
 
 function App() {
     const auth  = useContext(AuthContext);
@@ -50,11 +50,14 @@ function App() {
             <AuthenticatedRoute path="/espaceAdmin/ListeCommentairesParRestaurant/:id" component={CommentaireDetails} roleRequired="ROLE_ADMIN"/>
             <AuthenticatedRoute path="/espaceAdmin/ContacterUtilisateur" component={ContacterUtilisateur} roleRequired="ROLE_ADMIN"/>
 
-            <AuthenticatedRoute exact path="/espaceRestaurateur" component={InformationMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
-            <AuthenticatedRoute path="/espaceRestaurateur/carte" component={CarteMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
-            <AuthenticatedRoute path="/espaceRestaurateur/menu" component={MenuMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
-            <AuthenticatedRoute exact path="/espaceRestaurateur/commandes" component={ListeCommandeMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
-            <AuthenticatedRoute path="/espaceRestaurateur/commandes/:id" component={CommandeDetails} roleRequired="ROLE_RESTAURANT"/>
+            <RestConextProvider>
+                <AuthenticatedRoute exact path="/espaceRestaurateur" component={InformationMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
+                <AuthenticatedRoute path="/inscriptionRestaurant" component={InscriptionRestaurant} roleRequired="ROLE_RESTAURANT"/>
+                <AuthenticatedRoute path="/espaceRestaurateur/carte" component={CarteMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
+                <AuthenticatedRoute path="/espaceRestaurateur/menu" component={MenuMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
+                <AuthenticatedRoute exact path="/espaceRestaurateur/commandes" component={ListeCommandeMonRestaurant} roleRequired="ROLE_RESTAURANT"/>
+                <AuthenticatedRoute path="/espaceRestaurateur/commandes/:id" component={CommandeDetails} roleRequired="ROLE_RESTAURANT"/>
+            </RestConextProvider>
 
             <Route component={NotFound}/>
         </Switch>

@@ -7,11 +7,7 @@ const FormAdresseUtilisateurSignUp = ({modifyIndex, adresseRestaurant, setAdress
 
     const nextStep = e => {
         e.preventDefault();
-        modifyIndex(5);
-    };
-
-    const prevStep = e => {
-        modifyIndex(3);
+        modifyIndex(2);
     };
 
     return (
@@ -26,9 +22,6 @@ const FormAdresseUtilisateurSignUp = ({modifyIndex, adresseRestaurant, setAdress
                 <FieldForm label="Pays" type="text" placeholder="Pays" name="adrPays" value={adresseRestaurant.adrPays} onChange={setAdresseRestaurantHandler}/>
 
                 <div className="flex items-center justify-evenly">
-                    <button
-                        className="btnDanger"
-                        onClick={prevStep}>Précédent</button>
                     <Input
                         type="submit"
                         className="btnPrimary"

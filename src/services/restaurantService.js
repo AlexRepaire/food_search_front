@@ -1,4 +1,5 @@
 import http from "../utils/http-common";
+import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
@@ -9,8 +10,12 @@ const get = (id) => {
     return http.get(`/restaurant/find/${id}`);
 }
 
+const getRestByIdUti = (id) => {
+    return http.get(`/restaurant/findByIdUti/${id}`, {headers: authHeader()});
+};
+
 const create = (data) => {
-    return http.post('/restaurant/add',data);
+    return http.post('/restaurant/add',data, {headers: authHeader()});
 }
 
 const update = (data) => {
@@ -26,7 +31,8 @@ const restaurantService = {
     get,
     create,
     update,
-    remove
+    remove,
+    getRestByIdUti
 };
 
 export default restaurantService;

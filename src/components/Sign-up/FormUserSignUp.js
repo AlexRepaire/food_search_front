@@ -2,21 +2,11 @@ import React from 'react';
 import Input from "../../UI/Input";
 import FieldForm from "../../UI/FieldForm";
 
-const FormUserSignUp = ({modifyIndex, utilisateur, role, inscriptionUtilisateur, setUtilisateurHandler}) => {
-
-    const viewInput = role === "restaurant"
-        ? <Input type="submit" className="btnPrimary" value="suivant"/>
-        : <Input type="submit" className="btnUpdate" value="Finir inscription"/>;
+const FormUserSignUp = ({modifyIndex, utilisateur, inscriptionUtilisateur, setUtilisateurHandler}) => {
 
     const nextStep = e => {
         e.preventDefault();
-
-        if (role === "restaurant") {
-            modifyIndex(4);
-        } else {
-            inscriptionUtilisateur();
-        }
-
+        inscriptionUtilisateur();
     };
 
     const prevStep = e => {
@@ -39,7 +29,7 @@ const FormUserSignUp = ({modifyIndex, utilisateur, role, inscriptionUtilisateur,
                     <button
                         className="btnDanger"
                         onClick={prevStep}>Précédent</button>
-                    {viewInput}
+                    <Input type="submit" className="btnUpdate" value="Finir inscription"/>
                 </div>
             </div>
 
