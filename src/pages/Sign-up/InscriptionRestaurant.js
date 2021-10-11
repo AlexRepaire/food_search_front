@@ -6,6 +6,9 @@ import FormStepBar from "../../components/Sign-up/FormStepBar";
 import adresseService from "../../services/adresseService";
 import restaurantService from "../../services/restaurantService";
 import {useHistory} from "react-router-dom";
+import specialiteService from "../../services/specialiteService";
+import utilisateurService from "../../services/utilisateurService";
+import panierService from "../../services/panierService";
 
 const InscriptionRestaurant = () => {
     const auth  = useContext(AuthContext);
@@ -22,11 +25,11 @@ const InscriptionRestaurant = () => {
     const [restaurant, setRestaurant] = useState({
         restNom:'',
         restTel:'',
-        fsCommandesByRestId:'',
-        fsPlatsRestaurantsByRestId:'',
+        fsCommandesByRestId:[],
+        fsPlatsRestaurantsByRestId:[],
         fsAdresseByRestId:'',
         fsUtilisateurByRestIdUti:'',
-        fsSpecialiteByRestIdSpe:'1',
+        fsRestaurantsBySpeId:'1',
     });
     const [formIndex, setFormIndex] = useState(1);
 
@@ -41,12 +44,17 @@ const InscriptionRestaurant = () => {
     };
 
     const inscriptionRestaurant = async () => {
-        const response = await adresseService.create(adresseRestaurant);
-        const data = await response.data;
+        /*const response = await adresseService.create(adresseRestaurant);
+        const data = await response.data;*/
+        const idUti = JSON.parse(auth.user);
+        const userData = await utilisateurService.get(idUti.id);
+        console.log(userData.data)
+        /*
         let restaurantData = {...restaurant,
-            fsUtilisateurByRestIdUti: auth.user.id,
-            fsAdresseByRestId: data
+            fsAdresseByRestId: data,
+            fsUtilisateurByRestIdUti: idUti.id
         };
+        console.log(restaurantData)
 
         restaurantService.create(restaurantData)
             .then(response => {
@@ -58,7 +66,7 @@ const InscriptionRestaurant = () => {
                 console.log(error);
             })
 
-
+*/
     };
 
     const modifyIndex = (index) => {

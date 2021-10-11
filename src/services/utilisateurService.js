@@ -1,4 +1,5 @@
 import http from "../utils/http-common";
+import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
@@ -6,7 +7,7 @@ const getAll = () => {
 }
 
 const get = (id) => {
-    return http.get(`/utilisateur/find/${id}`);
+    return http.get(`/utilisateur/find/${id}`, {headers: authHeader()});
 }
 
 const create = (data) => {
