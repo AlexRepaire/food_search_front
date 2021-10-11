@@ -9,13 +9,9 @@ const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscr
     const recupData = useCallback(async () => {
         const arraySpecialite = await specialiteService.getAll();
         const data = await arraySpecialite.data;
-        const dataSpe = await data.map((spec) =>{
-            return {
-                speId: spec.speId,
-                speType: spec.speType
-            };
-        });
-        setSpecialite(dataSpe);
+        console.log(data)
+        setSpecialite(data);
+        console.log(specialite)
     },[]);
 
     useEffect( ()=>{
@@ -40,9 +36,9 @@ const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscr
                 <FieldForm label="Téléphone" type="number" placeholder="Téléphone" name="restTel" value={restaurant.restTel} onChange={setRestaurantHandler}/>
                 <div className="w-full mb-2">
                     <label>Specialité</label>
-                    <select name="fsSpecialiteByRestIdSpe" onChange={setRestaurantHandler}>
+                    <select name="fsRestaurantsBySpeId" onChange={setRestaurantHandler}>
                         {specialite.map((res,index)=>(
-                            <option key={index} value={parseInt(res.speId)}>{res.speType}</option>
+                            <option key={index} value={res.speId}>{res.speType}</option>
                         ))}
                     </select>
                 </div>

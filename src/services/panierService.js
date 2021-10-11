@@ -1,8 +1,9 @@
 import http from "../utils/http-common";
+import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
-    return http.get('/panier/find');
+    return http.get('/panier/find', {headers: authHeader()});
 }
 
 const get = (id) => {
