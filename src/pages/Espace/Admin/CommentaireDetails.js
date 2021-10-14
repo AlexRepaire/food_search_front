@@ -7,9 +7,6 @@ const CommentaireDetails = () => {
         <Fragment>
             <NavigationEspaceAdmin/>
             <div className="px-8 py-8">
-                <div>
-                    <p>Nom Resto</p>
-                </div>
                 <ListCommentaire/>
             </div>
         </Fragment>

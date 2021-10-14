@@ -3,7 +3,7 @@ import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
-    return http.get('/utilisateur/find');
+    return http.get('/utilisateur/find',{headers: authHeader()});
 }
 
 const get = (id) => {

@@ -14,7 +14,6 @@ import EspaceClient from "./pages/Espace/Client/EspaceClient";
 import MessageDetail from "./pages/Espace/Admin/MessageDetail";
 import ListeCommentaires from "./pages/Espace/Admin/ListeCommentaires";
 import CommentaireDetails from "./pages/Espace/Admin/CommentaireDetails";
-import ContacterUtilisateur from "./pages/Espace/Admin/ContacterUtilisateur";
 import ListeMessages from "./pages/Espace/Admin/ListeMessages";
 import InformationMonRestaurant from "./pages/Espace/Restaurateur/InformationMonRestaurant";
 import CarteMonRestaurant from "./pages/Espace/Restaurateur/CarteMonRestaurant";
@@ -48,7 +47,6 @@ function App() {
             <AuthenticatedRoute exact path="/espaceAdmin/message/:id" component={MessageDetail} roleRequired="ROLE_ADMIN"/>
             <AuthenticatedRoute exact path="/espaceAdmin/ListeCommentairesParRestaurant" component={ListeCommentaires} roleRequired="ROLE_ADMIN"/>
             <AuthenticatedRoute path="/espaceAdmin/ListeCommentairesParRestaurant/:id" component={CommentaireDetails} roleRequired="ROLE_ADMIN"/>
-            <AuthenticatedRoute path="/espaceAdmin/ContacterUtilisateur" component={ContacterUtilisateur} roleRequired="ROLE_ADMIN"/>
 
             <RestConextProvider>
                 <AuthenticatedRoute exact path="/espaceRestaurateur" component={InformationMonRestaurant} roleRequired="ROLE_RESTAURANT"/>

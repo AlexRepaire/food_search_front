@@ -1,7 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
+import messageService from "../../../../services/messageService";
 
 const TableauListMessages = () => {
+    const [dataMsg, setDataMsg] = useState([]);
+
+    const recupData = async()=>{
+        const response = await messageService.getAll();
+        const datas = await response.data;
+        setDataMsg(datas);
+    }
+
+    useEffect(()=>{
+        recupData();
+    }, [])
+
     return (
         <div className="flex flex-col p-20">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -29,29 +42,42 @@ const TableauListMessages = () => {
                             </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
+                            {
+                                dataMsg.map((res)=>{
+
+                                    return(
                             <tr>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center">
                                         <div className="ml-4">
                                             <div className="text-sm font-medium text-gray-900">
-                                                Nom client/resto
-                                                date du message
-                                            </div>
+                                                <p>{res.fsUtilisateurByMsgIdUti.utiNom}</p>                                           </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-500">
-                                        18/02/2021
+                                        <p>{res.msgDate}</p>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">blabla</div>
+                                    <div className="text-sm text-gray-500">
+                                        <div className="flex items-center">
+                                            <div className="ml-4">
+                                                <div className="text-sm font-medium text-gray-900">
+                                                    {res.msgMessage}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Link to="/espaceAdmin/message/2" className="text-indigo-600 hover:text-indigo-900">Voir le message</Link>
+                                    <Link to={`/espaceAdmin/message/${res.msgId}`} className="text-indigo-600 hover:text-indigo-900">Voir le message</Link>
                                 </td>
                             </tr>
+                                    )
+                                })
+                            }
                             </tbody>
                         </table>
                     </div>
