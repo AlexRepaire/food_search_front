@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import AuthContext from "../../store/auth-context";
 import FormAdresseRestaurantSignUp from "../../components/Sign-up/FormAdresseRestaurantSignUp";
 import FormRestaurantSignUp from "../../components/Sign-up/FormRestaurantSignUp";
@@ -25,12 +25,26 @@ const InscriptionRestaurant = () => {
     const [restaurant, setRestaurant] = useState({
         restNom:'',
         restTel:'',
+        restIban:'',
+        restSiret:'',
         fsCommandesByRestId:[],
         fsPlatsRestaurantsByRestId:[],
         fsAdresseByRestId:'',
         fsUtilisateurByRestIdUti:'',
-        fsRestaurantsBySpeId:'1',
+        fsSpecialiteByRestIdSpe:'',
     });
+    const [specialite, setSpecialite] = useState([]);
+
+    const recupData = useCallback(async () => {
+        const arraySpecialite = await specialiteService.getAll();
+        const data = await arraySpecialite.data;
+        setSpecialite(data);
+    },[]);
+
+    useEffect( async ()=>{
+        await recupData();
+    },[recupData])
+
     const [formIndex, setFormIndex] = useState(1);
 
     const setAdresseRestaurantHandler = ({currentTarget}) => {
@@ -44,29 +58,25 @@ const InscriptionRestaurant = () => {
     };
 
     const inscriptionRestaurant = async () => {
-        /*const response = await adresseService.create(adresseRestaurant);
-        const data = await response.data;*/
+        const response = await adresseService.create(adresseRestaurant);
+        const data = await response.data;
         const idUti = JSON.parse(auth.user);
         const userData = await utilisateurService.get(idUti.id);
-        console.log(userData.data)
-        /*
         let restaurantData = {...restaurant,
             fsAdresseByRestId: data,
-            fsUtilisateurByRestIdUti: idUti.id
+            fsUtilisateurByRestIdUti: userData.data,
+            fsSpecialiteByRestIdSpe: specialite[restaurant.fsSpecialiteByRestIdSpe]
         };
         console.log(restaurantData)
-
         restaurantService.create(restaurantData)
             .then(response => {
                 console.log(response);
-                //history.push('/espaceRestaurateur');
+                history.push('/espaceRestaurateur');
             })
             .catch(error => {
                 adresseService.remove(data.adrId);
                 console.log(error);
             })
-
-*/
     };
 
     const modifyIndex = (index) => {
@@ -82,6 +92,7 @@ const InscriptionRestaurant = () => {
             modifyIndex={modifyIndex}
             restaurant={restaurant}
             setRestaurantHandler={setRestaurantHandler}
+            specialite={specialite}
             inscriptionRestaurant={inscriptionRestaurant}/>,
     ];
 

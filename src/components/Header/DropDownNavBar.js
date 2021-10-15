@@ -1,20 +1,38 @@
-import {Fragment, useContext} from 'react'
+import {Fragment, useContext, useEffect, useState} from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import {Link} from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import {getItem} from "../../services/LocalStorage/localeStorage";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 const DropDownNavBar = (props) => {
-    const auth = useContext(AuthContext);
-    /**
-     *
-     * CONTEXT ROLE POUR GERER LES BOUTONS
-     * DU DROPDOWN
-     *
-     */
+    const {user} = useContext(AuthContext);
+    const [userData, setUserData] = useState({});
+    const [url, setUrl] = useState('');
+
+    const urlEspace = () => {
+        if (userData.role === "ROLE_CLIENT") {
+            setUrl("/espaceClient");
+        }
+        if (userData.role === "ROLE_RESTAURANT") {
+            setUrl("/espaceRestaurateur");
+        }
+        if (userData.role === "ROLE_ADMIN") {
+            setUrl("/espaceAdmin");
+        }
+    }
+
+    useEffect(async ()=>{
+        const userData2 = setTimeout(() => {
+            setUserData(new Object(JSON.parse(user)));
+            console.log(userData)
+            urlEspace();
+        }, 1000)
+    },[])
+
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
@@ -38,7 +56,7 @@ const DropDownNavBar = (props) => {
                     <div className="py-1">
                         <Menu.Item>
                             {({ active }) => (
-                                <Link
+                                <Link to={url}
                                     className={classNames(
                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                         'block px-4 py-2 text-sm'
@@ -48,19 +66,22 @@ const DropDownNavBar = (props) => {
                                 </Link>
                             )}
                         </Menu.Item>
-                        <Menu.Item>
-                            {({ active }) => (
-                                <Link
-                                    href="#"
-                                    className={classNames(
-                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                >
-                                    Panier
-                                </Link>
-                            )}
-                        </Menu.Item>
+                        {userData.role === "ROLE_CLIENT" ?
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <Link
+                                        to={"/espaceClient/panier"}
+                                        className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block px-4 py-2 text-sm'
+                                        )}
+                                    >
+                                        Panier
+                                    </Link>
+                                )}
+                            </Menu.Item>
+                        : null}
+
                         <Menu.Item>
                             {({ active }) => (
                                 <button onClick={props.logout}

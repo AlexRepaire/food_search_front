@@ -3,20 +3,7 @@ import Input from "../../UI/Input";
 import FieldForm from "../../UI/FieldForm";
 import specialiteService from "../../services/specialiteService";
 
-const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscriptionRestaurant}) => {
-    const [specialite, setSpecialite] = useState([]);
-
-    const recupData = useCallback(async () => {
-        const arraySpecialite = await specialiteService.getAll();
-        const data = await arraySpecialite.data;
-        console.log(data)
-        setSpecialite(data);
-        console.log(specialite)
-    },[]);
-
-    useEffect( ()=>{
-        recupData();
-    },[recupData])
+const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscriptionRestaurant,specialite}) => {
 
 
     const nextStep = e => {
@@ -34,11 +21,13 @@ const FormRestaurantSignUp = ({modifyIndex,restaurant,setRestaurantHandler,inscr
             <div className="px-12 pb-10">
                 <FieldForm label="Nom" type="text" placeholder="Nom" name="restNom" value={restaurant.restNom} onChange={setRestaurantHandler}/>
                 <FieldForm label="Téléphone" type="number" placeholder="Téléphone" name="restTel" value={restaurant.restTel} onChange={setRestaurantHandler}/>
+                <FieldForm label="Siret" type="text" placeholder="Siret" name="restSiret" value={restaurant.restSiret} onChange={setRestaurantHandler}/>
+                <FieldForm label="IBAN" type="text" placeholder="Iban" name="restIban" value={restaurant.restIban} onChange={setRestaurantHandler}/>
                 <div className="w-full mb-2">
                     <label>Specialité</label>
-                    <select name="fsRestaurantsBySpeId" onChange={setRestaurantHandler}>
+                    <select name="fsSpecialiteByRestIdSpe" onChange={setRestaurantHandler}>
                         {specialite.map((res,index)=>(
-                            <option key={index} value={res.speId}>{res.speType}</option>
+                            <option key={index} value={index}>{res.speType}</option>
                         ))}
                     </select>
                 </div>
