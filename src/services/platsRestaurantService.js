@@ -1,4 +1,5 @@
 import http from "../utils/http-common";
+import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
@@ -6,19 +7,23 @@ const getAll = () => {
 }
 
 const get = (id) => {
-    return http.get(`/platsRestaurant/find/${id}`);
+    return http.get(`/platsRestaurant/find/${id}`, {headers:authHeader()});
+}
+
+const getListPlats = (id) => {
+    return http.get(`/platsRestaurant/findListPlats/${id}`, {headers:authHeader()});
 }
 
 const create = (data) => {
-    return http.post('/platsRestaurant/add',data);
+    return http.post('/platsRestaurant/add',data, {headers:authHeader()});
 }
 
 const update = (data) => {
-    return http.put(`/platsRestaurant/update`, data);
+    return http.put(`/platsRestaurant/update`, data, {headers:authHeader()});
 }
 
 const remove = (id) => {
-    return http.delete(`/platsRestaurant/delete/${id}`);
+    return http.delete(`/platsRestaurant/delete/${id}`, {headers:authHeader()});
 }
 
 const platsRestaurantService = {
@@ -26,7 +31,8 @@ const platsRestaurantService = {
     get,
     create,
     update,
-    remove
+    remove,
+    getListPlats
 };
 
 export default platsRestaurantService;

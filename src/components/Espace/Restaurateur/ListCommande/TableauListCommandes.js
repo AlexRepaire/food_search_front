@@ -1,5 +1,4 @@
 import React from 'react';
-import InformationsCommande from "./InformationsCommande";
 import {Link} from "react-router-dom";
 
 const TableauListCommandes = () => {

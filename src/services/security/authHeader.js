@@ -9,7 +9,8 @@ export default function authHeader() {
 
     if (token) {
         return {
-            Authorization: 'Bearer ' + token
+            Authorization: 'Bearer ' + token,
+            ResponseType: 'blob'
         };
     } else {
         return {};

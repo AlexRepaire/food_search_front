@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import InformationsRestaurant from "../../../components/Espace/Restaurateur/Infos/InformationsRestaurant";
 import SliderRestaurant from "../../../components/Restaurant/SliderRestaurant";
 import NavigationEspaceRestaurant from "./NavigationEspaceRestaurant";
@@ -8,11 +8,26 @@ import AuthContext from "../../../store/auth-context";
 import {useHistory} from "react-router-dom";
 
 const InformationMonRestaurant = () => {
-    const [viewData, setViewData] = useState();
+    const {user} = useContext(AuthContext);
     let history = useHistory();
 
-    const auth = useContext(AuthContext);
-    const rest = useContext(RestContext);
+    const [viewData, setViewData] = useState({
+        fsSpecialiteByRestIdSpe: {speId: '', speType: ''},
+        fsUtilisateurByRestIdUti: {utiId: '', utiNom: '', utiPrenom: '', utiTel: '', utiPseudo: ''},
+        fsAdresseByRestId: {adrCp: '',
+            adrCplAdr: "",
+            adrId: '',
+            adrNumero: '',
+            adrPays: "",
+            adrRue: "",
+            adrVille: ""},
+        restIban: "",
+        restId: '',
+        restNom: "",
+        restSiret: "",
+        restTel: ""
+    });
+
 
     const slide = [
         {
@@ -33,28 +48,30 @@ const InformationMonRestaurant = () => {
         },
     ];
 
-    const recupDataRest = async () => {
-        const user = new Object(JSON.parse(auth.user));
+    const recupDataRest = useCallback(async () => {
 
-        const res = await restaurantService.getRestByIdUti(user.id);
+        const userData = new Object(JSON.parse(user));
+        const res = await restaurantService.getRestByIdUti(userData.id);
         const data = res.data;
 
         if (data === '') {
             history.push("/inscriptionRestaurant");
         } else {
-            setViewData(data);
+            console.log(data)
+            return data
         }
-    };
+    },[]);
 
-    useEffect(()=>{
-        recupDataRest();
+    useEffect(  async ()=>{
+        const data = await recupDataRest();
+        setViewData(data);
     },[recupDataRest])
 
     return (
-        <div className="mx-64">
+        <div className="mx-32">
             <NavigationEspaceRestaurant/>
             <div className="flex mt-8">
-                <InformationsRestaurant />
+                <InformationsRestaurant dataRestaurant={viewData} dataAdresse={viewData.fsAdresseByRestId}/>
                 <SliderRestaurant slideData={slide}/>
             </div>
         </div>
