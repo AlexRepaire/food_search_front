@@ -14,6 +14,10 @@ const getRestByIdUti = (id) => {
     return http.get(`/restaurant/findByIdUti/${id}`, {headers: authHeader()});
 };
 
+const getRestByVille = (ville) => {
+    return http.get(`/restaurant/findListByVille/${ville}`, {headers: authHeader()});
+};
+
 const create = (data) => {
     return http.post('/restaurant/add',data, {headers: authHeader()});
 }
@@ -32,7 +36,8 @@ const restaurantService = {
     create,
     update,
     remove,
-    getRestByIdUti
+    getRestByIdUti,
+    getRestByVille
 };
 
 export default restaurantService;

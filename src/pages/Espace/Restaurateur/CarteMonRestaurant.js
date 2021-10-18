@@ -6,11 +6,13 @@ import platsRestaurantService from "../../../services/platsRestaurantService";
 import categoriePlatService from "../../../services/categoriePlatsService";
 import restaurantService from "../../../services/restaurantService";
 import AuthContext from "../../../store/auth-context";
+import FormCarteUpdate from "../../../components/Espace/Restaurateur/Carte/FormCarteUpdate";
 
 const CarteMonRestaurant = () => {
     const {user} = useContext(AuthContext);
     const [restaurant, setRestaurant] = useState({});
     const [listePlats, setListePlats] = useState([]);
+    const [platSelectedToUpdate, setPlatSelectedToUpdate] = useState({});
     const [listePlatsFilter, setListePlatsFilter] = useState([]);
     const [categorie, setCategory] = useState([]);
     const [ajoutPlat, setAjoutPlat] = useState({
@@ -21,6 +23,11 @@ const CarteMonRestaurant = () => {
         fsCategPlatsByPrIdCat:[],
         fsRestaurantByPrIdRes:"",
     });
+    const [showModal, setShowModal] = React.useState(false);
+
+    const toggleShowModal = () => {
+        setShowModal(!showModal);
+    };
 
     const handleAjoutPlat = ({currentTarget}) => {
         const { name, value} = currentTarget;
@@ -38,6 +45,27 @@ const CarteMonRestaurant = () => {
         };
         const dataCreateRes = await platsRestaurantService.create(plat);
         await recupDataPlat(dataRestaurant.restId);
+    };
+
+    const handlerUdpatePlat = ({currentTarget}) => {
+          const { name, value } = currentTarget;
+          setPlatSelectedToUpdate({...platSelectedToUpdate, [name]:value});
+    };
+
+    const updatePlat = async () => {
+        const platUpdate = {...platSelectedToUpdate,
+        fsCategPlatsByPrIdCat: categorie[platSelectedToUpdate.fsCategPlatsByPrIdCat] || categorie.find(item => item.cpId === platSelectedToUpdate.fsCategPlatsByPrIdCat.cpId)
+        }
+        await platsRestaurantService.update(platUpdate);
+        await recupDataPlat(restaurant.restId);
+        toggleShowModal();
+    };
+
+    const viewFormUpdate = (e) => {
+        const valuePlat = e.target.value;
+        const plat = listePlatsFilter.find(item => item.prId === parseInt(valuePlat));
+        setPlatSelectedToUpdate(plat);
+        toggleShowModal();
     };
 
     const supprimerPlat = async (e) => {
@@ -86,8 +114,9 @@ const CarteMonRestaurant = () => {
         <div className="text-center">
             <NavigationEspaceRestaurant/>
             <FormCarteRestaurant ajouterPlat={ajouterPlat} categoriePlat={categorie} handleAjoutPlat={handleAjoutPlat}/>
+            {showModal ? <FormCarteUpdate toggleShowModal={toggleShowModal} updatePlat={updatePlat} categorie={categorie} platSelectedToUpdate={platSelectedToUpdate} handlerUdpatePlat={handlerUdpatePlat}/> : null}
             <h2 className="text-xl text-center uppercase font-bold">Liste des plats/boissons</h2>
-            <TableauListPlats plats={listePlatsFilter} supprimerPlat={supprimerPlat} handlePlatsFilter={handlePlatsFilter}/>
+            <TableauListPlats plats={listePlatsFilter} supprimerPlat={supprimerPlat} handlePlatsFilter={handlePlatsFilter} viewFormUpdate={viewFormUpdate}/>
         </div>
     );
 };

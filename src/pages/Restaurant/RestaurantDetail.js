@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import SearchFormBar from "../../components/SearchForm/SearchFormBar";
 import SliderRestaurant from "../../components/Restaurant/SliderRestaurant";
@@ -6,10 +6,16 @@ import InformationsRestaurant from '../../components/Restaurant/InformationsRest
 import AvisRestaurant from "../../components/Restaurant/AvisRestaurant";
 import MenuRestaurant from "../../components/Restaurant/MenuRestaurant";
 import CarteRestaurant from "../../components/Restaurant/CarteRestaurant";
+import restaurantService from "../../services/restaurantService";
 
 const RestaurantDetail = () => {
     const {id} = useParams();
     const [nav, setNav] = useState("avis");
+    const [search, setSearch] = useState({
+        quoi: "",
+        ou: ""
+    });
+    const [restaurant, setRestaurant] = useState({});
 
     const navHandler = e => {
         setNav(e.target.value);
@@ -30,14 +36,25 @@ const RestaurantDetail = () => {
         },
     ];
 
+    const recupDataRestaurant = async () => {
+        const res = await restaurantService.get(id);
+        const data = res.data;
+        setRestaurant(data);
+        console.log(data)
+    }
+
+    useEffect(async ()=>{
+        await recupDataRestaurant();
+    },[])
+
     return (
-        <div className="mx-64">
+        <div className="mx-32">
             <div className="my-8">
-                <SearchFormBar />
+                <SearchFormBar search={search}/>
             </div>
             <div className="flex">
-                <SliderRestaurant slideData={slide}/>
-                <InformationsRestaurant/>
+                <SliderRestaurant slideData={slide} />
+                <InformationsRestaurant />
             </div>
             <div className="my-8">
                 <div className="flex w-6/12 border-b-2 my-8">
