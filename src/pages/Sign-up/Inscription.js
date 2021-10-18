@@ -82,12 +82,6 @@ const Inscription = () => {
             });
     };
 
-
-    /**
-     * FINIR LA PARTIE RESTAURANT
-     */
-
-
     const modifyIndex = (index) => {
         setFormIndex(index);
     };
