@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const TableauListCommandes = () => {
+const TableauListCommandes = ({toggleHandlerCommandeView}) => {
+
+
     return (
         <div className="flex flex-col p-20">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -70,11 +72,9 @@ const TableauListCommandes = () => {
                                 <td className="border px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-500 text-center">
 
-                                        <Link to='/espaceRestaurateur/commandes/1'>
-                                            <button className="btnPrimary m-2" >
-                                                Voir commandes
+                                            <button className="btnPrimary m-2" onClick={toggleHandlerCommandeView}>
+                                                Voir commande
                                             </button>
-                                        </Link>
                                     </div>
                                 </td>
 

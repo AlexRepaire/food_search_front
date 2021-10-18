@@ -25,6 +25,7 @@ const NavBar = () => {
             <DropDownNavBar logout={auth.logout}/>
         </div>
 
+
     return (
         <header>
             <nav className={styles.navBar}>

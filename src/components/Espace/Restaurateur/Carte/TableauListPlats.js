@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableauListPlats = ({plats,handlePlatsFilter, supprimerPlat}) => {
+const TableauListPlats = ({plats,handlePlatsFilter, supprimerPlat, viewFormUpdate}) => {
 
 
     return (
@@ -88,7 +88,7 @@ const TableauListPlats = ({plats,handlePlatsFilter, supprimerPlat}) => {
                                     </td>
                                     <td className="border px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm text-gray-500">
-                                            <button className="btnUpdate m-2" >Modifier</button>
+                                            <button className="btnUpdate m-2" value={res.prId} onClick={viewFormUpdate}>Modifier</button>
                                             <button className="btnDanger m-2" value={res.prId} onClick={supprimerPlat}>Supprimer</button>
                                         </div>
                                     </td>

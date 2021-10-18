@@ -4,22 +4,13 @@ import ImageCover from "../../assets/coverSearchForm.png";
 import FieldForm from "../../UI/FieldForm";
 import Input from "../../UI/Input";
 
-const SearchFormBar = () => {
+const SearchFormBar = ({recupListRest, search, handleChange}) => {
     let history = useHistory();
 
-    const [search, setSearch] = useState({
-        quoi: "",
-        ou: "Valenciennes"
-    });
 
-    const handleChange = ({currentTarget}) => {
-        const { name, value} = currentTarget;
-        setSearch({...search, [name]: value})
-    };
-
-    const formSubmissionHandler = e => {
+    const formSubmissionHandler = async e => {
         e.preventDefault();
-        history.push(`/restaurant?quoi=${search.quoi}&ou=${search.ou}`);
+        await recupListRest();
     }
 
     return (
@@ -27,7 +18,7 @@ const SearchFormBar = () => {
             <form className="flex w-9/12 shadow-none bg-white" onSubmit={formSubmissionHandler}>
                 <div className="w-full">
                     <label>Quoi ?</label>
-                    <Input onChange={handleChange} name={"quoi"}  type="text" placeholder="Quoi ?"/>
+                    <Input onChange={handleChange} name={"quoi"} value={search.quoi}  type="text" placeholder="Quoi ?"/>
                 </div>
                 <div className="w-full">
                     <label>Ou ?</label>

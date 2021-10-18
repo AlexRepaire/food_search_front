@@ -13,15 +13,18 @@ const DropDownNavBar = (props) => {
     const [userData, setUserData] = useState({});
     const [url, setUrl] = useState('');
 
-    const urlEspace = () => {
-        if (userData.role === "ROLE_CLIENT") {
-            setUrl("/espaceClient");
+    const urlEspace = async () => {
+        const data = new Object(JSON.parse(user));
+        await setUserData(data);
+
+        if (data.role === "ROLE_CLIENT") {
+            await setUrl("/espaceClient");
         }
-        if (userData.role === "ROLE_RESTAURANT") {
-            setUrl("/espaceRestaurateur");
+        if (data.role === "ROLE_RESTAURANT") {
+            await setUrl("/espaceRestaurateur");
         }
-        if (userData.role === "ROLE_ADMIN") {
-            setUrl("/espaceAdmin");
+        if (data.role === "ROLE_ADMIN") {
+            await setUrl("/espaceAdmin");
         }
     }
 

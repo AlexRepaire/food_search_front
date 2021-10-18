@@ -1,24 +1,52 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import SearchFormHome from "../../components/SearchForm/SearchFormHome";
 import CarouselComp from "../../components/Carousel/CarouselComp";
+import restaurantService from "../../services/restaurantService";
 
 const Home = () => {
+    const [carrousel, setCarrousel] = useState([
+        {restNom:"",
+        restId:'',
+        fsSpecialiteByRestIdSpe: {
+            speType:''
+        },
+            fsAdresseByRestId:{
+            adrVille:''
+            }}
+    ]);
+    const [carrousel2, setCarrousel2] = useState([
+        {restNom:"",
+            restId:'',
+            fsSpecialiteByRestIdSpe: {
+                speType:''
+            },
+        fsAdresseByRestId:{
+            adrVille:''
+        }}
+    ]);
 
-    const data = [
-        {title:"BACKPACKING TRIPS",url:"https://www.wanderon.in/svg/backpacking-trips.svg"},
-        {title:"WEEKEND TRIPS",url:"https://www.wanderon.in/svg/weekend-trips.svg"},
-        {title:"WORKCATIONS STAYS",url:"https://www.wanderon.in/svg/workcations.svg"},
-        {title:"ADVENTURE COURSES",url:"https://www.wanderon.in/svg/scuba.svg"},
-        {title:"CUSTOMISED TRIPS",url:"https://www.wanderon.in/svg/customised-trips.svg"},
-        {title:"CORPORATE TRIPS",url:"https://www.wanderon.in/svg/corporate-trips.svg"},
-    ]
+    const recupListRestByVille = async (ville) => {
+        const listRest = await restaurantService.getRestByVille(ville);
+        await setCarrousel(listRest.data);
+    };
+
+    const recupListRestByVille2 = async (ville) => {
+        const listRest = await restaurantService.getRestByVille(ville);
+        console.log(listRest)
+
+        await setCarrousel2(listRest.data);
+    };
+
+    useEffect(async ()=>{
+        await recupListRestByVille("Maubeuge");
+        await recupListRestByVille2("Valenciennes")
+    },[])
 
     return (
         <div>
             <SearchFormHome />
-            <CarouselComp title="les mieux notés" data={data}/>
-            <CarouselComp title="les plus proches" data={data}/>
-
+            <CarouselComp title="les restaurant de Maubeuge" data={carrousel}/>
+            <CarouselComp title="les restaurant de Valenciennes" data={carrousel2}/>
         </div>
     );
 };

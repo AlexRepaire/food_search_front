@@ -3,6 +3,7 @@ import styles from "./Carousel.module.css";
 import imageTest from "../../assets/coverSearchForm.png";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import {Link} from "react-router-dom";
 
 const CarouselComp = ({title,data}) => {
 
@@ -36,66 +37,23 @@ const CarouselComp = ({title,data}) => {
                       draggable={false}
                       showDots={false}
             >
-                <div className="mx-auto px-4 py-8 max-w-xl ">
-                    <a href="/" className="text-xl">
-                    <div className="bg-white rounded-lg hover:shadow-2xl tracking-wide">
-                        <div className="md:flex-shrink-0">
-                            <img src={imageTest} className="w-full h-64 rounded-lg rounded-b-none"/>
-                        </div>
-                        <div className="px-4 py-2 mt-2">
-                            <p className="text-gray-600 ">Pizzeria</p>
-                            <h2 className="font-bold text-2xl text-gray-800 tracking-normal my-2">Nom du restaurant</h2>
-                            <p className="text-gray-600">59600 Maubeuge</p>
-                            <p className="text-gray-600">Prix moyens: 30€</p>
-                        </div>
+                {data.map((item,index)=>(
+                    <div className="mx-auto px-4 py-8 max-w-xl ">
+                        <Link to="/" className="text-xl">
+                            <div className="bg-white rounded-lg hover:shadow-2xl tracking-wide">
+                                <div className="md:flex-shrink-0">
+                                    <img src={imageTest} className="w-full h-64 rounded-lg rounded-b-none" alt="photo du restaurant"/>
+                                </div>
+                                <div className="px-4 py-2 mt-2">
+                                    <p className="text-gray-600 ">{item.fsSpecialiteByRestIdSpe.speType}</p>
+                                    <h2 className="font-bold text-2xl text-gray-800 tracking-normal my-2">{item.restNom}</h2>
+                                    <p className="text-gray-600">{item.fsAdresseByRestId.adrVille}</p>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
-                    </a>
-                </div>
-                <div className="mx-auto px-4 py-8 max-w-xl ">
-                    <a href="/" className="text-xl">
-                        <div className="bg-white rounded-lg hover:shadow-2xl tracking-wide">
-                            <div className="md:flex-shrink-0">
-                                <img src={imageTest} className="w-full h-64 rounded-lg rounded-b-none"/>
-                            </div>
-                            <div className="px-4 py-2 mt-2">
-                                <p className="text-gray-600 ">Pizzeria</p>
-                                <h2 className="font-bold text-2xl text-gray-800 tracking-normal my-2">Nom du restaurant</h2>
-                                <p className="text-gray-600">59600 Maubeuge</p>
-                                <p className="text-gray-600">Prix moyens: 30€</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div className="mx-auto px-4 py-8 max-w-xl ">
-                    <a href="/" className="text-xl">
-                        <div className="bg-white rounded-lg hover:shadow-2xl tracking-wide">
-                            <div className="md:flex-shrink-0">
-                                <img src={imageTest} className="w-full h-64 rounded-lg rounded-b-none"/>
-                            </div>
-                            <div className="px-4 py-2 mt-2">
-                                <p className="text-gray-600 ">Pizzeria</p>
-                                <h2 className="font-bold text-2xl text-gray-800 tracking-normal my-2">Nom du restaurant</h2>
-                                <p className="text-gray-600">59600 Maubeuge</p>
-                                <p className="text-gray-600">Prix moyens: 30€</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div className="mx-auto px-4 py-8 max-w-xl ">
-                    <a href="/" className="text-xl">
-                        <div className="bg-white rounded-lg hover:shadow-2xl tracking-wide">
-                            <div className="md:flex-shrink-0">
-                                <img src={imageTest} className="w-full h-64 rounded-lg rounded-b-none"/>
-                            </div>
-                            <div className="px-4 py-2 mt-2">
-                                <p className="text-gray-600 ">Pizzeria</p>
-                                <h2 className="font-bold text-2xl text-gray-800 tracking-normal my-2">Nom du restaurant</h2>
-                                <p className="text-gray-600">59600 Maubeuge</p>
-                                <p className="text-gray-600">Prix moyens: 30€</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                ))}
+
             </Carousel>
 
         </div>
