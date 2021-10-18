@@ -1,14 +1,36 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import FieldForm from "../../../../UI/FieldForm";
 import {useParams, useHistory } from "react-router-dom";
+import messageService from "../../../../services/messageService";
 
 const FormMessageResponse = () => {
     const {id} = useParams();
     let history = useHistory();
+    const [dataMsg, setDataMsg] = useState({
+        msgMessage:'',
+        fsUtilisateurByMsgIdUti:{
+            utiNom:''
+        },
+        msgDate:''
+    });
+
+    const recupData = async () =>{
+       const response = await messageService.get(id);
+       const data = await response.data;
+       setDataMsg(data);
+    }
+
+    /**
+     * envoi automatique de MAIL à prévoir.
+     */
 
     const prevNavigation = () => {
         history.push("/espaceAdmin");
     }
+
+    useEffect(() =>{
+        recupData();
+    }, [])
 
     return (
         <div>
@@ -25,12 +47,12 @@ const FormMessageResponse = () => {
                 </button>
             </div>
             <div className="p-8">
-                <p>Nom du client</p>
-                <p>Date du message</p>
+                <p>{dataMsg.fsUtilisateurByMsgIdUti.utiNom}</p>
+                <p>{dataMsg.msgDate}</p>
             </div>
             <div className="p-8 border rounded">
                 <h2 className="font-bold">Message de l'utilisateur: </h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur consequuntur dolorum ea eaque iusto maxime minima modi officia rem repellendus.</p>
+                <p>{dataMsg.msgMessage}</p>
             </div>
             <div >
                 <form className="shadow-none bg-white">

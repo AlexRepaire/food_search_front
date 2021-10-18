@@ -29,7 +29,6 @@ const FormRoleSignUp = (props) => {
                         <button className="btnPrimary" value="client" onClick={roleHandler}>Inscription client</button>
                     </div>
                 </div>
-
             </div>
         </div>
     );
