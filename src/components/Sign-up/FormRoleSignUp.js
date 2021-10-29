@@ -29,7 +29,12 @@ const FormRoleSignUp = (props) => {
                         <button className="btnPrimary" value="client" onClick={roleHandler}>Inscription client</button>
                     </div>
                 </div>
-
+                <div className="max-w-sm rounded overflow-hidden shadow-lg mx-10">
+                    <img className="w-full h-60" src={imageClient} alt="client" />
+                    <div className="px-6 py-4 text-center">
+                        <button className="btnPrimary" value="admin" onClick={roleHandler}>Inscription admin</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

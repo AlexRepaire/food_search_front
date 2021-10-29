@@ -1,7 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import utilisateurService from "../../../../services/utilisateurService";
+import commandeService from "../../../../services/commandeService";
 
-const InformationsCommande = ({toggleHandlerCommandeView}) => {
+const InformationsCommande = ({toggleHandlerCommandeView, commandeSelected}) => {
 
+    const [total, setTotal] = useState(0);
+    const [user, setUser] = useState({});
+
+    const calculTotal = () => {
+        let totalData = 0;
+        commandeSelected.fsCommandeDetailsByCmdId.map(res=>{
+            const totalRes = res.cmdDetailsPrix * res.cmdDetailsQuantite;
+            totalData = totalData + totalRes;
+        })
+        setTotal(totalData)
+        console.log(commandeSelected)
+    };
+
+    const recupDataUser = async () => {
+        const res = await utilisateurService.get(commandeSelected.cmdIdUti);
+        const data = res.data;
+        await setUser(data);
+    };
+
+    const commandeTerminate = async () => {
+        const data = commandeSelected;
+        data.cmdStatus = "terminé";
+        await commandeService.update(data);
+    };
+
+    useEffect(()=> {
+        calculTotal();
+        recupDataUser();
+    },[commandeSelected])
 
     return (
         <div className="mx-20">
@@ -18,25 +49,59 @@ const InformationsCommande = ({toggleHandlerCommandeView}) => {
                 </button>
             </div>
             <div className="my-8">
-            <ul>
-                <li>Numéro de commande</li>
-                <li>nom client</li>
-                <li>numero de téléphone</li>
-                <li>mail</li>
-                <li>Prix total</li>
-            </ul>
+                <ul>
+                    <li>Numéro de commande: {commandeSelected.cmdId}</li>
+                    <li>nom client: {user.utiNom} {user.utiPrenom}</li>
+                    <li>numero de téléphone: {user.utiTel}</li>
+                    <li>mail: {user.utiMail}</li>
+                </ul>
             </div>
             <div className="my-8">
-            <ul>
-                <li>plat 1    -----------   x1</li>
-                <li>plat 2    -----------   x3</li>
-                <li>plat 3    -----------   x1</li>
-                <li>dessert 1 -----------   x3</li>
-                <li>boisson 1 -----------   x2</li>
-            </ul>
-            </div>
-            <button className='btnPrimary mb-4'>Commande terminé</button>
+                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table className=" table-auto border min-w-full divide-y divide-gray-200 ">
+                        <thead className="bg-gray-50 ">
+                            <tr>
+                                <th
+                                    className="border text-center px-6 py-4  text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Nom
+                                </th>
+                                <th scope="col"
+                                    className="border text-center px-6 py-4  text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Quantité
+                                </th>
+                                <th scope="col"
+                                    className="border text-center px-6 py-4  text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Prix Unitaire
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200 overflow-y-scroll">
+                        {commandeSelected.fsCommandeDetailsByCmdId.map((res,index)=>{
+                            return <tr>
+                                <td className="border px-6 py-4 whitespace-nowrap ">
+                                    <div className="text-sm text-gray-500 text-center">
+                                        {res.cmdDetailsNom}
+                                    </div>
+                                </td>
+                                <td className="border px-6 py-4 whitespace-nowrap ">
+                                    <div className="text-sm text-gray-500 text-center">
+                                        {res.cmdDetailsQuantite}
+                                    </div>
+                                </td>
+                                <td className="border px-6 py-4 whitespace-nowrap ">
+                                    <div className="text-sm text-gray-500 text-center">
+                                        {res.cmdDetailsPrix}
+                                    </div>
+                                </td>
+                            </tr>
+                        })}
+                        </tbody>
+                    </table>
+                </div>
+                <p>Total net TTC = {total} €</p>
 
+            </div>
+            <button className='btnPrimary mb-4' onClick={commandeTerminate}>Commande terminé</button>
         </div>
     );
 };

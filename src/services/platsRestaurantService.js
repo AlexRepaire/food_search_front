@@ -10,8 +10,8 @@ const get = (id) => {
     return http.get(`/platsRestaurant/find/${id}`, {headers:authHeader()});
 }
 
-const getListPlats = (id) => {
-    return http.get(`/platsRestaurant/findListPlats/${id}`, {headers:authHeader()});
+const getListPlats = (idRest) => {
+    return http.get(`/platsRestaurant/findListPlats/${idRest}`, {headers:authHeader()});
 }
 
 const create = (data) => {

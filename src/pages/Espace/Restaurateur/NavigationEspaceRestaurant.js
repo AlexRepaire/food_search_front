@@ -13,6 +13,8 @@ const NavigationEspaceRestaurant = () => {
                 <Link class="mx-5 hover:text-gray-900" to={'/espaceRestaurateur/menu'}>Menu</Link>
                 <div>|</div>
                 <Link class="mx-5 hover:text-gray-900" to={'/espaceRestaurateur/commandes'}>Commandes</Link>
+                <div>|</div>
+                <Link class="mx-5 hover:text-gray-900" to={'/contact'} >Contacter admin</Link>
             </nav>
         </div>
     );

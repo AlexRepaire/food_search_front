@@ -10,7 +10,7 @@ const SearchFormBar = ({recupListRest, search, handleChange}) => {
 
     const formSubmissionHandler = async e => {
         e.preventDefault();
-        await recupListRest();
+        await recupListRest(search.ou);
     }
 
     return (

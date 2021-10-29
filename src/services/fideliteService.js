@@ -1,4 +1,5 @@
 import http from "../utils/http-common";
+import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
@@ -10,7 +11,7 @@ const get = (id) => {
 }
 
 const create = (data) => {
-    return http.post('/fidelite/add',data);
+    return http.post('/fidelite/add',data, {headers: authHeader()});
 }
 
 const update = (data) => {
