@@ -3,11 +3,11 @@ import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
-    return http.get('/restaurant/find');
+    return http.get('/restaurant/find', {headers: authHeader()});
 }
 
 const get = (id) => {
-    return http.get(`/restaurant/find/${id}`);
+    return http.get(`/restaurant/find/${id}`,{headers: authHeader()});
 }
 
 const getRestByIdUti = (id) => {

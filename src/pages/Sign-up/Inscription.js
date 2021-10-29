@@ -57,6 +57,7 @@ const Inscription = () => {
 
     const inscriptionUtilisateur = async () => {
         const response = await adresseService.create(adresse);
+        console.log(response)
         const data = await response.data;
         let user = {...utilisateur, fsAdresseByUtiId: data, fsRoleByUtiIdRol: role};
         authService.register(user)

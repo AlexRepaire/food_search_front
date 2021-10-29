@@ -20,6 +20,7 @@ const update = (data) => {
 
 const remove = (id) => {
     return http.delete(`/message/delete/${id}`, {headers: authHeader()});
+
 }
 
 const messageService = {
