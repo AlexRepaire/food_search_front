@@ -9,6 +9,8 @@ const NavigationEspaceClient = () => {
                 <Link class="mx-5 hover:text-gray-900" to={'/espaceClient'}>Profil</Link>
                 <div>|</div>
                 <Link class="mx-5 hover:text-gray-900" to={'/espaceClient/panier'} >Panier</Link>
+                <div>|</div>
+                <Link class="mx-5 hover:text-gray-900" to={'/contact'} >Contacter admin</Link>
             </nav>
         </div>
     );

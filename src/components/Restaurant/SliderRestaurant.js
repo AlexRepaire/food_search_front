@@ -7,7 +7,7 @@ const SliderRestaurant = ({slideData}) => {
 
 
     return (
-        <div className="slide-container w-6/12 ">
+        <div className="slide-container md:w-6/12 ">
             <Slide>
                 {slideImages.map((slideImage, index)=> (
                     <div className="each-slide" key={index}>

@@ -10,9 +10,15 @@ const get = (id) => {
     return http.get(`/commande/find/${id}`, {headers: authHeader()});
 }
 
+
+const getByRest = (id) => {
+    return http.get(`/commande/findListCommandeByRest/${id}`)
+}
+
 const getList = (id) => {
     return http.get(`/commande/findList/${id}`, {headers: authHeader()});
 };
+
 
 const create = (data) => {
     return http.post('/commande/add',data, {headers: authHeader()});
@@ -32,6 +38,7 @@ const commandeService = {
     create,
     update,
     remove,
+    getByRest,
     getList
 };
 
