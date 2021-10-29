@@ -7,19 +7,19 @@ const getAll = () => {
 }
 
 const get = (id) => {
-    return http.get(`/panier/find/${id}`);
+    return http.get(`/panier/find/${id}`, {headers: authHeader()});
 }
 
 const create = (data) => {
-    return http.post('/panier/add',data);
+    return http.post('/panier/add',data, {headers: authHeader()});
 }
 
 const update = (data) => {
-    return http.put(`/panier/update`, data);
+    return http.put(`/panier/update`, data, {headers: authHeader()});
 }
 
 const remove = (id) => {
-    return http.delete(`/panier/delete/${id}`);
+    return http.delete(`/panier/delete/${id}`, {headers: authHeader()});
 }
 
 const panierService = {

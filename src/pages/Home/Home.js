@@ -32,8 +32,6 @@ const Home = () => {
 
     const recupListRestByVille2 = async (ville) => {
         const listRest = await restaurantService.getRestByVille(ville);
-        console.log(listRest)
-
         await setCarrousel2(listRest.data);
     };
 

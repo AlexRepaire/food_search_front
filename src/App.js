@@ -23,6 +23,7 @@ import CommandeDetails from "./pages/Espace/Restaurateur/CommandeDetails";
 import AuthContext from "./store/auth-context";
 import {RestConextProvider} from "./store/rest-context";
 import InscriptionRestaurant from "./pages/Sign-up/InscriptionRestaurant";
+import Contact from "./pages/Contact";
 
 function App() {
     const auth  = useContext(AuthContext);
@@ -40,6 +41,7 @@ function App() {
             }
             <Route path="/restaurant" component={Restaurant} exact/>
             <Route path="/restaurant/:id" component={RestaurantDetail} />
+            <Route path="/contact" component={Contact}/>
             <AuthenticatedRoute exact path="/espaceClient" component={EspaceClient} roleRequired="ROLE_CLIENT"/>
             <AuthenticatedRoute path="/espaceClient/panier" component={Panier} roleRequired="ROLE_CLIENT"/>
 

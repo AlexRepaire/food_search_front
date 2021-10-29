@@ -10,9 +10,15 @@ const get = (id) => {
     return http.get(`/commande/find/${id}`, {headers: authHeader()});
 }
 
+
+const getByRest = (id) => {
+    return http.get(`/commande/findListCommandeByRest/${id}`)
+}
+
 const getList = (id) => {
     return http.get(`/commande/findList/${id}`, {headers: authHeader()});
 };
+
 
 const getListByRest = (id) => {
     return http.get(`/commande/findListCommandeByRest/${id}`, {headers: authHeader()})
@@ -42,7 +48,9 @@ const commandeService = {
     remove,
     getList,
     getListByRest,
-    getListByUti
+    getListByUti,
+    getByRest,
+
 };
 
 export default commandeService;

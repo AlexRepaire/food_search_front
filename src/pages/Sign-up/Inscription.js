@@ -9,6 +9,8 @@ import adresseService from "../../services/adresseService";
 import authService from "../../services/security/authService";
 import AuthContext from "../../store/auth-context";
 import {useHistory} from "react-router-dom";
+import utilisateurService from "../../services/utilisateurService";
+import fideliteService from "../../services/fideliteService";
 
 const Inscription = () => {
     const auth  = useContext(AuthContext);
@@ -72,6 +74,14 @@ const Inscription = () => {
                                 'role': response.data.roles[0].authority
                             }
                             auth.loginUser(userData, response.data.accessToken);
+                            utilisateurService.get(response.data.id).then(res => {
+                                const dataFidelite = {
+                                    fidPtsFid: 50,
+                                    fsUtilisateurByFidIdUtil: res.data
+                                }
+                                fideliteService.create(dataFidelite);
+                            });
+
                         }
                         history.push("/home");
                     });
