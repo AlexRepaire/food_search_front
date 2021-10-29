@@ -32,7 +32,6 @@ const InformationsClient = ({userDatas,toggleShowModalUpdateUser}) => {
                         <p>Prénom : {userDatas.utiPrenom}</p>
                         <p>Date de naissance : {userDatas.utiDdn}</p>
                         <p>Adresse mail : {userDatas.utiMail}</p>
-                        <p>point de fidélité : {userDatas.fsFidelitesByUtiId.fidPtsFid}</p>
                         <p>Numéro de téléphone : {userDatas.utiTel}</p>
 
                     </div>

@@ -10,6 +10,10 @@ const get = (id) => {
     return http.get(`/favoris/find/${id}`, {headers: authHeader()});
 }
 
+const getListByIdUti = (id) => {
+    return http.get(`/favoris/findListFav/${id}`, {headers: authHeader()});
+}
+
 const create = (data) => {
     return http.post('/favoris/add',data, {headers: authHeader()});
 }
@@ -27,7 +31,8 @@ const favorisService = {
     get,
     create,
     update,
-    remove
+    remove,
+    getListByIdUti
 };
 
 export default favorisService;

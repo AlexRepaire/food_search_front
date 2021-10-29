@@ -11,7 +11,8 @@ import horaireService from "../../../services/horaireService";
 import evaluationService from "../../../services/evaluationService";
 import commandeService from "../../../services/commandeService";
 import UpdateClientForm from "../../../components/Espace/Client/UpdateClientForm";
-import Panier from "./Panier";
+import favorisService from "../../../services/favorisService";
+
 
 const EspaceClient = () => {
 
@@ -86,23 +87,22 @@ const EspaceClient = () => {
         const data = res.data;
         await setUserData(data);
         await setUserDataUpdated(data);
-        await recupFav(data.fsFavorisesByUtiId);
+        console.log(data)
     }
 
     const recupFav = async (data) => {
-        if (data.length > 0){//Créer un objet avec la response et favIdRest
-            await data.map(async(res)=>{
-                const response = await restaurantService.get(res.favIdRes);
-                console.log(response)
-                await setDataFav([...dataFav, response.data]);
-                //return res.favIdRes;
-            })
-        }
-
+        const utilisateur = new Object(JSON.parse(user));
+        const datasFavori = await favorisService.getListByIdUti(utilisateur.id);
+        await datasFavori.data.map(async(res)=>{
+            const response = await restaurantService.get(res.favIdRes);
+            console.log(response)
+            await setDataFav([...dataFav, response.data]);
+        })
     }
 
     useEffect(async() =>{
         await recupDonnee();
+        await recupFav();
     },[])
 
     return (

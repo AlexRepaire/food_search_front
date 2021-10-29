@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import emailjs from "emailjs-com";
 import FieldForm from "../../../../UI/FieldForm";
 import {useParams, useHistory } from "react-router-dom";
 import messageService from "../../../../services/messageService";
@@ -20,12 +21,20 @@ const FormMessageResponse = () => {
        setDataMsg(data);
     }
 
-    /**
-     * envoi automatique de MAIL à prévoir.
-     */
-
     const prevNavigation = () => {
         history.push("/espaceAdmin");
+    }
+
+    const sendMail = (e) => {
+        e.preventDefault();
+        emailjs.sendForm("service_asgxz8r","template_p5l4dyn", e.target,"user_M9eXlKkvSSQGja8nuS9So")
+            .then(res => {
+                console.log(res.text)
+            })
+            .catch(error => {
+                console.log(error.text)
+            })
+        e.target.reset();
     }
 
     useEffect(() =>{
@@ -55,9 +64,10 @@ const FormMessageResponse = () => {
                 <p>{dataMsg.msgMessage}</p>
             </div>
             <div >
-                <form className="shadow-none bg-white">
-                    <FieldForm label="Réponse" placeholder="réponse à l'utilisateur" type="text" />
-                    <button className="btnUpdate ">Envoyer {id}</button>
+                <form className="shadow-none bg-white" onSubmit={sendMail}>
+                    <FieldForm type="hidden" name="to_name" value={dataMsg.fsUtilisateurByMsgIdUti.utiNom}/>
+                    <FieldForm label="Réponse" placeholder="réponse à l'utilisateur" type="text" name="message"/>
+                    <button className="btnUpdate" type="submit">Envoyer</button>
                 </form>
             </div>
 
