@@ -22,12 +22,17 @@ const remove = (id) => {
     return http.delete(`/panier/delete/${id}`, {headers: authHeader()});
 }
 
+const findPanierByUti = (id) => {
+    return http.get(`/panier/findPanierByUti/${id}`, {headers: authHeader()});
+}
+
 const panierService = {
     getAll,
     get,
     create,
     update,
-    remove
+    remove,
+    findPanierByUti
 };
 
 export default panierService;
