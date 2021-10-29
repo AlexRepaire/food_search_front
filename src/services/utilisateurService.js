@@ -11,15 +11,15 @@ const get = (id) => {
 }
 
 const create = (data) => {
-    return http.post('/utilisateur/add',data);
+    return http.post('/utilisateur/add',data,{headers: authHeader()});
 }
 
 const update = (data) => {
-    return http.put(`/utilisateur/update`, data);
+    return http.put(`/utilisateur/update`, data,{headers: authHeader()});
 }
 
 const remove = (id) => {
-    return http.delete(`/utilisateur/delete/${id}`);
+    return http.delete(`/utilisateur/delete/${id}`,{headers: authHeader()});
 }
 
 const utilisateurService = {

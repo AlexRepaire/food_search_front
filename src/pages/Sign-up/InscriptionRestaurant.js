@@ -67,7 +67,7 @@ const InscriptionRestaurant = () => {
             fsUtilisateurByRestIdUti: userData.data,
             fsSpecialiteByRestIdSpe: specialite[restaurant.fsSpecialiteByRestIdSpe]
         };
-        console.log(restaurantData)
+        console.log(specialite)
         restaurantService.create(restaurantData)
             .then(response => {
                 console.log(response);

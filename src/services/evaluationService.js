@@ -14,6 +14,10 @@ const create = (data) => {
     return http.post('/evaluation/add',data,{headers: authHeader()});
 }
 
+const createAndReturn = (data) => {
+    return http.post('/evaluation/addAndReturn',data,{headers: authHeader()});
+}
+
 const update = (data) => {
     return http.put(`/evaluation/update`, data,{headers: authHeader()});
 }
@@ -27,7 +31,8 @@ const evaluationService = {
     get,
     create,
     update,
-    remove
+    remove,
+    createAndReturn
 };
 
 export default evaluationService;

@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import restaurantService from "../../../../services/restaurantService";
 import {comment} from "postcss";
 import evaluationService from "../../../../services/evaluationService";
+import commandeService from "../../../../services/commandeService";
 
 const ListCommentaire = () => {
     const {id} = useParams();
@@ -16,9 +17,11 @@ const ListCommentaire = () => {
         }],
         });
     const recupDataRest = async() => {
-        const response = await restaurantService.get(id);
-        const data = await response.data;
-        await setDataResto(data);
+        //const response = await restaurantService.get(id);
+        //const data = await response.data;
+        //await setDataResto(data);
+        const response = await commandeService.getListByRest(id);
+        console.log(response.data);
     }
 
     const suppDonne = async(e) => {
