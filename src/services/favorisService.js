@@ -1,4 +1,5 @@
 import http from "../utils/http-common";
+import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
@@ -18,7 +19,7 @@ const update = (data) => {
 }
 
 const remove = (id) => {
-    return http.delete(`/favoris/delete/${id}`);
+    return http.delete(`/favoris/delete/${id}`,{headers: authHeader()});
 }
 
 const favorisService = {

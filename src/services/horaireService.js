@@ -1,4 +1,5 @@
 import http from "../utils/http-common";
+import authHeader from "./security/authHeader";
 
 
 const getAll = () => {
@@ -10,7 +11,7 @@ const get = (id) => {
 }
 
 const create = (data) => {
-    return http.post('/horaires/add',data);
+    return http.post('/horaires/add',data, {headers: authHeader()});
 }
 
 const update = (data) => {
@@ -21,7 +22,7 @@ const remove = (id) => {
     return http.delete(`/horaires/delete/${id}`);
 }
 
-const horairesService = {
+const horaireService = {
     getAll,
     get,
     create,
@@ -29,4 +30,4 @@ const horairesService = {
     remove
 };
 
-export default horairesService;
+export default horaireService;
