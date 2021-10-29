@@ -11,6 +11,7 @@ import horaireService from "../../../services/horaireService";
 import evaluationService from "../../../services/evaluationService";
 import commandeService from "../../../services/commandeService";
 import UpdateClientForm from "../../../components/Espace/Client/UpdateClientForm";
+import Panier from "./Panier";
 
 const EspaceClient = () => {
 

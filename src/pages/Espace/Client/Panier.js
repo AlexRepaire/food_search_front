@@ -3,6 +3,7 @@ import NavigationEspaceClient from "./NavigationEspaceClient";
 import PanierComp from "../../../components/Espace/Client/PanierComp";
 
 const Panier = () => {
+
     return (
         <div>
             <NavigationEspaceClient />

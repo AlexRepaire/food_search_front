@@ -1,6 +1,71 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import utilisateurService from "../../../services/utilisateurService";
+import AuthContext from "../../../store/auth-context";
+import panierService from "../../../services/panierService";
+import Stripe from "react-stripe-checkout";
+import axios from "axios";
 
 const PanierComp = () => {
+
+    const {user} = useContext(AuthContext);
+    const [listePanier, setListePanier] = useState([
+        {}
+    ]);
+    const [total,setTotal] = useState(0);
+
+    const recupUti = async () => {
+        const utilisateur = new Object(JSON.parse(user));
+        const response = await panierService.findPanierByUti(utilisateur.id);
+        const listPanier = await response.data;
+        await setListePanier(listPanier)
+        calculTotal(listPanier)
+    };
+
+    const calculTotal = (data) => {
+        let montant=0;
+        data.map(res => {
+            const calculPrixArticle = res.panQuantite * res.panPrix;
+            montant = montant + calculPrixArticle;
+        })
+        setTotal(montant)
+    }
+
+    const suppElemPanier = async(e) => {
+        const id = e.target.value;
+        await panierService.remove(id);
+        await recupUti();
+    };
+
+    const updateQuantite = async(e) => {
+        const nomButton = e.target.name;
+        const idPanier = e.target.value;
+        const response = listePanier.find(item => item.panId === parseInt(idPanier));
+        if (nomButton === "incremente") {
+            response.panQuantite ++;
+        }
+        if (nomButton === "decremente" && response.panQuantite > 0) {
+            response.panQuantite --;
+        }
+        await panierService.update(response);
+        await recupUti();
+    }
+
+    async function handleToken(token) {
+        console.log(token);
+        await axios.post("http://localhost:8080/api/payment/charge", "", {         headers: {
+                token: token.id,
+                amount: 500,
+            },}).then(() => {
+            alert("Payment Success");
+        }).catch((error) => {
+            alert(error);
+        });
+    }
+
+    useEffect(async ()=>{
+       await recupUti();
+    },[]);
+
     return (
         <div className="h-screen bg-blend-luminosity">
             <div className="py-12">
@@ -10,118 +75,41 @@ const PanierComp = () => {
                             <div className="md:grid md:grid-cols-3 gap-2 ">
                                 <div className="col-span-2 p-5">
                                     <h1 className="text-xl font-medium ">Panier</h1>
-                                    <div className="flex justify-between items-center mt-6 pt-6">
-                                        <div className="flex items-center"><img src="https://i.imgur.com/EEguU02.jpg"
-                                                                                width="60" className="rounded-full "/>
-                                            <div className="flex flex-col ml-3"><span
-                                                className="md:text-md font-medium">Le wrap à Momo</span> <span
-                                                className="text-xs font-light text-gray-400">#41551</span></div>
-                                        </div>
-                                        <div className="flex justify-center items-center">
-                                            <div className="pr-8 flex "><span className="font-semibold">-</span> <input
-                                                type="text"
-                                                className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
-                                                value="1"/> <span className="font-semibold">+</span></div>
-                                            <div className="pr-8 "><span className="text-xs font-medium">10.50€</span>
-                                            </div>
-                                            <div><i className="fa fa-close text-xs font-medium"></i></div>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-between items-center pt-6 mt-6 border-t">
-                                        <div className="flex items-center"><img
-                                            src="https://i.imgur.com/Uv2Yqzo.jpg" width="60"
-                                            className="rounded-full "/>
-                                            <div className="flex flex-col ml-3 "><span
-                                                className="text-md font-medium w-auto">Potatoes Mexicaine épicée</span>
-                                                <span className="text-xs font-light text-gray-400">#66999</span>
-                                            </div>
-                                        </div>
-                                        <div className="flex justify-center items-center">
-                                            <div className="pr-8 flex"><span className="font-semibold">-</span>
-                                                <input type="text"
-                                                       className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
-                                                       value="1"/> <span className="font-semibold">+</span></div>
-                                            <div className="pr-8"><span
-                                                className="text-xs font-medium">10.50€</span></div>
-                                            <div><i className="fa fa-close text-xs font-medium"></i></div>
-                                        </div>
-                                    </div>
+                                    {
+                                        listePanier.map((res)=>{
+                                            return(
+                                                <div className="flex justify-between items-center mt-6 pt-6">
+                                                    <div className="flex items-center">
+                                                        <div className="flex flex-col ml-3">
+                                                            <span className="md:text-md font-medium">{res.panTitre}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex justify-center items-center">
+                                                        <div className="pr-8 flex ">
+                                                            <button className="font-semibold" value={res.panId} name="decremente" onClick={updateQuantite}>-</button>
+                                                            <input type="text" className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" value={res.panQuantite}/>
+                                                            <button className="font-semibold" value={res.panId} name="incremente" onClick={updateQuantite}>+</button>
+                                                        </div>
+                                                        <div className="pr-8 ">
+                                                            <span className="text-xs font-medium">{res.panPrix}€</span>
+                                                        </div>
+                                                        <button className="btnDanger" value={res.panId} onClick={suppElemPanier}>X</button>
+                                                        <div><i className="fa fa-close text-xs font-medium"></i></div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                     <div className="flex justify-between items-center mt-6 pt-6 border-t">
-                                        <div className="flex items-center"><img src="https://i.imgur.com/xbTAITF.jpg"
-                                                                                width="60" className="rounded-full "/>
-                                            <div className="flex flex-col ml-3 "><span
-                                                className="text-md font-medium">Petit-déj</span> <span
-                                                className="text-xs font-light text-gray-400">#86577</span></div>
-                                        </div>
-                                        <div className="flex justify-center items-center">
-                                            <div className="pr-8 flex"><span className="font-semibold">-</span>
-                                                <input type="text"
-                                                       className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
-                                                       value="1"/> <span className="font-semibold">+</span></div>
-                                            <div className="pr-8"><span
-                                                className="text-xs font-medium">10.50€</span></div>
-                                            <div><i className="fa fa-close text-xs font-medium"></i></div>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-between items-center mt-6 pt-6 border-t">
-                                        <div className="flex items-center"><i
-                                            className="fa fa-arrow-left text-sm pr-2"></i> <span
-                                            className="text-md font-medium text-blue-500">Continuer vos achats</span>
-                                        </div>
                                         <div className="flex justify-center items-end"><span
                                             className="text-sm font-medium text-gray-400 mr-1">Total:</span> <span
-                                            className="text-lg font-bold text-gray-800 ">24.90€</span></div>
-                                    </div>
-                                </div>
-                                <div className=" p-5 bg-gray-800 rounded overflow-visible"><span
-                                    className="text-xl font-medium text-gray-100 block pb-3">Détails de la carte</span>
-                                    <span className="text-xs text-gray-400 ">Type de carte</span>
-                                    <div className="overflow-visible flex justify-between items-center mt-2">
-                                        <div className="rounded w-52 h-28 bg-gray-500 py-2 px-4 relative right-10"><span
-                                            className="italic text-lg font-medium text-gray-200 underline">VISA</span>
-                                            <div className="flex justify-between items-center pt-4 "><span
-                                                className="text-xs text-gray-200 font-medium">****</span> <span
-                                                className="text-xs text-gray-200 font-medium">****</span> <span
-                                                className="text-xs text-gray-200 font-medium">****</span> <span
-                                                className="text-xs text-gray-200 font-medium">****</span></div>
-                                            <div className="flex justify-between items-center mt-3"><span
-                                                className="text-xs text-gray-200">Giga Tamarashvili</span> <span
-                                                className="text-xs text-gray-200">12/22</span></div>
-                                        </div>
-                                        <div className="flex justify-center items-center flex-col"><img
-                                            src="https://img.icons8.com/color/96/000000/mastercard-logo.png" width="40"
-                                            className="relative right-5"/> <span
-                                            className="text-xs font-medium text-gray-200 bottom-2 relative right-5">mastercard.</span>
+                                            className="text-lg font-bold text-gray-800 ">{total}</span>
                                         </div>
                                     </div>
-                                    <div className="flex justify-center flex-col pt-3"><label
-                                        className="text-xs text-gray-400 ">Nom de la carte</label> <input type="text"
-                                                                                                          className="focus:outline-none w-full h-6 bg-gray-800 text-white placeholder-gray-300 text-sm border-b border-gray-600 py-4"
-                                                                                                          placeholder="Giga Tamarashvili"/>
-                                    </div>
-                                    <div className="flex justify-center flex-col pt-3"><label
-                                        className="text-xs text-gray-400 ">Numéro de carte</label> <input type="text"
-                                                                                                          className="focus:outline-none w-full h-6 bg-gray-800 text-white placeholder-gray-300 text-sm border-b border-gray-600 py-4"
-                                                                                                          placeholder="**** **** **** ****"/>
-                                    </div>
-                                    <div className="grid grid-cols-3 gap-2 pt-2 mb-3">
-                                        <div className="col-span-2 "><label className="text-xs text-gray-400">Date
-                                            d'expiration</label>
-                                            <div className="grid grid-cols-2 gap-2"><input type="text"
-                                                                                           className="focus:outline-none w-full h-6 bg-gray-800 text-white placeholder-gray-300 text-sm border-b border-gray-600 py-4"
-                                                                                           placeholder="mm"/>
-                                                <input type="text"
-                                                       className="focus:outline-none w-full h-6 bg-gray-800 text-white placeholder-gray-300 text-sm border-b border-gray-600 py-4"
-                                                       placeholder="aaaa"/></div>
-                                        </div>
-                                        <div className=""><label className="text-xs text-gray-400">Cryptogramme</label>
-                                            <input type="text"
-                                                   className="focus:outline-none w-full h-6 bg-gray-800 text-white placeholder-gray-300 text-sm border-b border-gray-600 py-4"
-                                                   placeholder="XXX"/></div>
-                                    </div>
-                                    <button
-                                        className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">Valider
-                                    </button>
+                                    <Stripe
+                                        stripeKey="pk_test_51Jpy87JSDuo2TuOyu7URw86FiyLQaGhYw0B1yM9ylRibDdbT9wf1xEhKCT92QYoTm2Nc3npiKE1otbUxGk83EGs300Em2P1OcK"
+                                        token={handleToken}
+                                    />
                                 </div>
                             </div>
                         </div>
