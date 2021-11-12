@@ -32,7 +32,7 @@ const Restaurant = () => {
     const [infoMarkerList, setInfoMarkerList] = useState([]);
 
     const recupPosition = async (ville) => {
-        const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${ville},+CA&key=AIzaSyAHTWG8Oh9kEj7div6Kqr4wlt9zqzVcMrw`);
+        const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${ville},+CA&key=secretkey`);
         const coord = await res.data.results[0].geometry.location;
         await setPosition(coord);
     };
@@ -40,8 +40,9 @@ const Restaurant = () => {
     const listRestMarkers = async (listRest) => {
           let array = [];
           listRest.map(async res => {
-              const adresse = `${res.fsAdresseByRestId.adrNumero}, ${res.fsAdresseByRestId.adrRue}, ${res.fsAdresseByRestId.adrVille}, ${res.fsAdresseByRestId.adrCplAdr}, ${res.fsAdresseByRestId.adrPays}, ${res.fsAdresseByRestId.adrCp}`;
-              const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse},+CA&key=AIzaSyAHTWG8Oh9kEj7div6Kqr4wlt9zqzVcMrw`);
+              const adresse = `${res.fsAdresseByRestId.adrNumero}, ${res.fsAdresseByRestId.adrRue}, ${res.fsAdresseByRestId.adrVille},
+               ${res.fsAdresseByRestId.adrCplAdr}, ${res.fsAdresseByRestId.adrPays}, ${res.fsAdresseByRestId.adrCp}`;
+              const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${adresse},+CA&key=secretkey`);
               const coord = await response.data.results[0].geometry.location;
               const data = {
                   coord: await coord,
@@ -63,7 +64,6 @@ const Restaurant = () => {
         const listRest = await restaurantService.getRestByVille(ville);
         await setListRestaurant(listRest.data);
         await listRestMarkers(listRest.data);
-
     };
 
 

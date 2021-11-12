@@ -9,12 +9,12 @@ const containerStyle = {
 const MapRestaurant = ({ville, infoMarkerList}) => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyDz7Ysyc04sTRwDTupIBpZzn3KXwqOa3oo"
+        googleMapsApiKey: "secretkey"
     })
 
     const [selected, setSelected] = useState(null);
 
-    const markers = infoMarkerList && infoMarkerList.map((res,index) => (
+    const markers = infoMarkerList.map((res,index) => (
         <Marker
             key={index}
             position={res.coord}
@@ -23,6 +23,7 @@ const MapRestaurant = ({ville, infoMarkerList}) => {
             }}
         />
     ))
+
 
     return isLoaded ? (
         <GoogleMap
