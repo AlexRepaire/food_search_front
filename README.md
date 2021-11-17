@@ -1,3 +1,12 @@
+# Resume
+
+FoodSearch est une application de click&collect dans le domaine de la restauration.
+Elle permet à un utilisateur inscrit entant que client de commander des plats et de payer sa commande via Stripe
+Les restaurateurs peuvent gérer les informations de leur restaurant ainsi que leur carte et menu.
+Ils peuvent également gérer consulter et gérer les commandes des clients.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
